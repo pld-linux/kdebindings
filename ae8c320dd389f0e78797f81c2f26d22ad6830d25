@@ -1,0 +1,19 @@
+- adapterized, removed trash, added Sorce URL and pl translations
+NOTE: 2.2.2 on ftp
+
+* Wed Sep 12 2001 Tim Powers <timp@redhat.com>
+- rebuild with new gcc and binutils
+
+* Thu Aug  9 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.2-2
+- Make sure %{name}-kmozilla isn't built on ia64
+
+* Mon Jul 23 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.2-0.cvs20010723.2
+- Move python bindings to separate package
+- Add perl bindings
+- Shut up rpmlint
+
+* Wed Feb 21 2001 Bernhard Rosenkraenzer <bero@redhat.com>
+- 2.1
+
+* Sun Jan 28 2001 Bernhard Rosenkraenzer <bero@redhat.com>
+- initial RPM
