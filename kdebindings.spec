@@ -1,4 +1,4 @@
-%define		_ver		3.0
+%define		_ver		3.0.1
 #define		_sub_ver
 %define		_rel		0.1
 
