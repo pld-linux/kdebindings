@@ -22,6 +22,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.t
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-dcopperl.patch
 Patch2:		%{name}-DESTDIR.patch
+# This is an ugly hack to make am work without regenerating
+Patch3:		%{name}-am_hack.patch
 URL:		http://www.kde.org/
 #BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
@@ -45,10 +47,6 @@ BuildRequires: mozilla-devel
 %{!?_without_alsa:BuildRequires:        alsa-lib-devel}
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_prefix		/usr/X11R6
-%define		_htmldir	/usr/share/doc/kde/HTML
-%define		_mandir		%{_prefix}/man
 
 %description
 Bindings fot the K Desktop Environment:
@@ -423,26 +421,24 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+##%patch0 -p1
+##%patch1 -p1
+##%patch2 -p1
+%patch3 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__automake}
 ##%{__make} -f Makefile.cvs
 export QTDIR=/usr/X11R6
 %configure  \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
 	--with%{!?_with_java:out}-java%{?_with_java:=/usr/lib/java} \
+	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with%{?_without_alsa:out}-alsa
 
-%{__make}
+##%{__make}
 #{__make} -C dcopjava
 #{__make} -C dcoppython
 
@@ -575,6 +571,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files qt-csharp
 %defattr(644,root,root,755)
+%doc qtsharp/src/examples/samples/*.cs qtsharp/src/examples/tutorials/*.cs
 %attr(755,root,root) %{_bindir}/*uicsharp*
 %{_libdir}/*qtsharp.la
 %attr(755,root,root) %{_libdir}/Qt.dll
@@ -588,6 +585,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/javalib
 # ???
 #%{_prefix}/doc/javalib
+%doc qtjava/javalib/docs/en/*
 %{_libdir}/*qtjava.la
 %attr(755,root,root) %{_libdir}/*qtjava.so.1.*
 %{_libdir}/java/org/kde/qt
