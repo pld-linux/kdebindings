@@ -1,6 +1,6 @@
-%define		_ver		3.0.1
+%define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		0.1
+%define		_rel		0.5
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -28,7 +28,8 @@ BuildRequires:	libpng-devel
 #BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel
-BuildRequires:	some-working-Java-SDK
+# Well... what's that?? :)
+#BuildRequires:	some-working-Java-SDK
 BuildRequires:	gcc-objc
 %ifnarch ia64
 # Remove the "#" when the build system has finally run out of crack
@@ -113,8 +114,8 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 %configure \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
-	--enable-objc
-	#--without-java
+	--enable-objc \
+	--without-java
 
 ## UGLY workaround for python bug...
 #cat >fPIC <<EOF
