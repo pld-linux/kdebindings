@@ -3,22 +3,22 @@
 %bcond_with java # enable java
 
 %define		_state	stable
-%define		_ver	3.3.0
+%define		_kver	3.4
+%define		_ver	3.4.0
 
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	7
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	63f7cd3ae52397c2182527899efb4c80
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	bac87a665ce5e5704f48336122052fb4
 Patch0:		%{name}-ac.patch
-Patch1:		%{name}-python24.patch
-Patch2:		%{name}-lib64.patch
-Patch100:	%{name}-branch.diff
+Patch1:		%{name}-lib64.patch
+#Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -395,11 +395,10 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1 -b .niedakh
-%patch1 -p1
 %if "%{_lib}" == "lib64"
-%patch2 -p1
+%patch1 -p1
 %endif
 
 %build
@@ -433,12 +432,14 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	destdir=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_desktopdir} \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
 %{__make} -C kalyptus install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	destdir=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_desktopdir} \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir} 
 
@@ -465,6 +466,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kjsembed
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/jsaccess
+%attr(755,root,root) %{_bindir}/embedjs
 %attr(755,root,root) %{_bindir}/kjscmd
 %attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
 %{_libdir}/kde3/libcustomobjectplugin.la
@@ -477,15 +479,25 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libjsconsoleplugin.so
 %{_libdir}/kde3/libqprocessplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libqprocessplugin.so
+%{_libdir}/kde3/libjavascript.la
+%attr(755,root,root) %{_libdir}/kde3/libjavascript.so
+%{_libdir}/kde3/libfileitemplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libfileitemplugin.so
 %{_desktopdir}/kde/kjscmd.desktop
 %dir %{_datadir}/apps/kjsembed
 %{_datadir}/apps/kjsembed/cmdline.js
+%{_datadir}/apps/embedjs
+%{_datadir}/apps/kate/scripts/swaptabs*
 %{_datadir}/services/customobject_plugin.desktop
 %{_datadir}/services/customqobject_plugin.desktop
 %{_datadir}/services/imagefx_plugin.desktop
 %{_datadir}/services/qprocess_plugin.desktop
+%{_datadir}/services/javascript.desktop
+%{_datadir}/services/kfileitem_plugin.desktop
 %{_datadir}/servicetypes/binding_type.desktop
 %{_mandir}/man1/kjscmd.1*
+%{_iconsdir}/*/*/apps/embedjs.png
+%{_desktopdir}/Utilities/embedjs.desktop
 
 %files kjsembed-devel
 %defattr(644,root,root,755)
@@ -533,10 +545,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ruby/site_ruby/1.8/Qt.rb
 %{_libdir}/ruby/site_ruby/1.8/Qt/qtruby.rb
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qtruby.so.0.0.0
+%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qui.so.0.0.0
 
 %files ruby-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/krubyinit
+%attr(755,root,root) %{_bindir}/rbkconfig_compiler
 %{_libdir}/ruby/site_ruby/1.8/KDE/korundum.rb
 %{_libdir}/ruby/site_ruby/1.8/Korundum.rb
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/korundum.so.0.0.0
