@@ -30,7 +30,6 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
 #BuildRequires:	pnet >= 0.4.8
-BuildRequires:	python-devel-src >= 2.1
 BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	ruby-devel
