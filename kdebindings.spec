@@ -164,7 +164,7 @@ A library for embedding the KJS JavaScript interpreter in application.
 Biblioteka pozwalaj±ca na zagnie¿d¿anie interpretera JavaScript - KJS,
 w dowolnej aplikacji.
 
-%package  kjsembed-devel
+%package kjsembed-devel
 Summary:	kjsembed header files
 Summary(pl):	Pliki nag³ówkowe dla kjsembed
 Group:		X11/Development/Libraries
@@ -353,7 +353,7 @@ Common libraries for XParts technology.
 %description xparts-interfaces -l pl
 Wspó³dzielone biblioteki dla technologii XParts.
 
-%package  xparts-interfaces-devel
+%package xparts-interfaces-devel
 Summary:	xparts-interfaces header files
 Summary(pl):	Pliki nag³ówkowe dla xparts-interfaces
 Group:		X11/Development/Libraries
@@ -405,7 +405,7 @@ cp %{_datadir}/automake/config.sub admin
 #export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
-%configure  \
+%configure \
 	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with-extra-includes=%{py_incdir} \
