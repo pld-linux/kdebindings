@@ -1,0 +1,13 @@
+--- kdebindings-3.3.0/admin/acinclude.m4.in.orig	2004-08-25 14:25:05.068863688 +0200
++++ kdebindings-3.3.0/admin/acinclude.m4.in	2004-08-25 14:47:32.836971792 +0200
+@@ -4169,8 +4169,8 @@
+ if test -z "$LIBPYTHON"; then
+   LIBPYTHON=-lpython$version
+ fi
+-
+-AC_FIND_FILE(python$version/copy.py, $python_libdirs, python_moddir)
++python_moddirs="/usr/share $python_libdirs"
++AC_FIND_FILE(python$version/copy.py, $python_moddirs, python_moddir)
+ python_moddir=$python_moddir/python$version
+ if test ! -r $python_moddir/copy.py; then
+   python_moddir=no
