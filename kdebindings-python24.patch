@@ -1,0 +1,20 @@
+--- kdebindings-3.3.0/admin/acinclude.m4.in.orig	2005-01-09 22:43:38.725865536 +0100
++++ kdebindings-3.3.0/admin/acinclude.m4.in	2005-01-09 22:44:00.162606656 +0100
+@@ -4213,7 +4213,8 @@
+ 
+ AC_DEFUN([KDE_CHECK_PYTHON],
+ [
+-  KDE_CHECK_PYTHON_INTERN("2.3", 
++KDE_CHECK_PYTHON_INTERN("2.4",
++  [KDE_CHECK_PYTHON_INTERN("2.3", 
+    [KDE_CHECK_PYTHON_INTERN("2.2", 
+      [KDE_CHECK_PYTHON_INTERN("2.1", 
+        [KDE_CHECK_PYTHON_INTERN("2.0", 
+@@ -4222,6 +4223,7 @@
+      ])
+    ])
+ ])
++])
+ 
+ AC_DEFUN([KDE_CHECK_STL],
+ [
