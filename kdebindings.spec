@@ -1,6 +1,6 @@
-%define		_ver		3.0.2
+%define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		0.5
+%define		_rel		0.1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -18,7 +18,6 @@ License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
 BuildRequires:	kdelibs-devel
@@ -35,6 +34,7 @@ BuildRequires:	gcc-objc
 # Remove the "#" when the build system has finally run out of crack
 BuildRequires: mozilla-devel
 %endif
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_htmldir	/usr/share/doc/kde/HTML
