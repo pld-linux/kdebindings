@@ -428,16 +428,21 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %patch2 -p1
 
 %build
+kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
-#{__make} -f Makefile.cvs
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+##%{__make} -f Makefile.cvs
 export QTDIR=/usr/X11R6
-%configure
-	%{?_with_java:--with-java=/usr/lib/java} \
-	%{!?_with_java:--without-java} \
-	--with%{?_without_alsa:out}-alsa		
-       --with-pythondir=/usr/lib/python2.1/site-packages 	
-#{__make}
+%configure  \
+	--with-pythondir=/usr/lib/python2.1/site-packages \
+	--with%{!?_with_java:out}-java%{?_with_java:=/usr/lib/java} \
+	--with%{?_without_alsa:out}-alsa
+
+%{__make}
 #{__make} -C dcopjava
 #{__make} -C dcoppython
 
@@ -446,20 +451,20 @@ export QTDIR=/usr/X11R6
 #perl Makefile.PL <<EOF
 #$QTDIR/include/qt
 #$QTDIR/lib
-#%{_includedir}/kde
-#%{_libdir}
+##%{_includedir}/kde
+##%{_libdir}
 #EOF
 #mkdir -p blib/bin
-#%{__make}
+##%{__make}
 # This one should stay commented (takes too long)
-#%{__make} test 
+##%{__make} test 
 #cd ..
 
 # kalyptus compilation
 #cd kalyptus
-#%{__autoconf}
-#%configure
-#%{__make}
+##%{__autoconf}
+##%configure
+##%{__make}
 #cd ..
 
 %install
@@ -468,15 +473,15 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR="$RPM_BUILD_ROOT" destdir="$RPM_BUILD_ROOT"
 
 # dcop perl bindings installation
-#%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
+##%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
 
 # kalyptus instalation
 #cd kalyptus
-#%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+##%{__make} install DESTDIR="$RPM_BUILD_ROOT"
 #cd ..
 
-#%{__make} -C dcopjava install DESTDIR="$RPM_BUILD_ROOT"
-#%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
+##%{__make} -C dcopjava install DESTDIR="$RPM_BUILD_ROOT"
+##%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
 rm -rf $RPM_BUILD_ROOT%{_bindir}/uicsharp
 cd $RPM_BUILD_ROOT%{_bindir}
 ln -sf uicsharp.exe uicsharp
