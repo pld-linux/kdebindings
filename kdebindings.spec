@@ -1,26 +1,42 @@
+%define		_ver		3.0
+#define		_sub_ver
+%define		_rel		0.1
+
+%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
+%{!?_sub_ver:	%define	_version	%{_ver}}
+%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
+%{!?_sub_ver:	%define	_release	%{_rel}}
+%{!?_sub_ver:	%define	_ftpdir	stable}
+%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
+
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Name:		kdebindings
-Version:	2.2
-Release:	4
+Version:	%{_version}
+Release:	%{_release}
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/stable/2.2/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
 BuildRequires:	kdelibs-devel
-BuildRequires:	kdelibs-sound-devel
+#BuildRequires:	kdelibs-sound-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	fam-devel
+#BuildRequires:	fam-devel
+BuildRequires:	gettext-devel
+BuildRequires:	gtk+-devel
+BuildRequires:	some-working-Java-SDK
+BuildRequires:	gcc-objc
 %ifnarch ia64
 # Remove the "#" when the build system has finally run out of crack
-# BuildRequires: mozilla-devel
+BuildRequires: mozilla-devel
 %endif
 
 %define		_prefix		/usr/X11R6
+%define		_htmldir	/usr/share/doc/kde/HTML
 %define		_mandir		%{_prefix}/man
 
 %description
@@ -89,39 +105,47 @@ u¿ywanego przez KDE.
 %setup -q
 
 %build
-%{__make} -f Makefile.cvs
-QTDIR=%{_prefix}
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+kde_icondir="%{_pixmapsdir}"; export kde_icondir
+#%{__make} -f Makefile.cvs
+
+#QTDIR=%{_prefix}
+
 %configure \
-	--without-java \
-	--with-pythondir=/usr/lib/python2.1/site-packages
+	--with-pythondir=/usr/lib/python2.1/site-packages \
+	--enable-objc
+	#--without-java
 
-# UGLY workaround for python bug...
-cat >fPIC <<EOF
-#!/bin/sh
-exec %{__cc} -fPIC \$@
-EOF
-chmod +x fPIC
-PATH="$PATH:`pwd`"; export PATH
-# end workaround
-
-%{__make}
-%{__make} -C dcoppython
-cd dcopperl
-perl Makefile.PL <<EOF
-$QTDIR/include
-$QTDIR/lib
-%{_includedir}/kde
-%{_libdir}
-EOF
-mkdir -p blib/bin
+## UGLY workaround for python bug...
+#cat >fPIC <<EOF
+##!/bin/sh
+#exec %{__cc} -fPIC \$@
+#EOF
+#chmod +x fPIC
+#PATH="$PATH:`pwd`"; export PATH
+## end workaround
+#
+#%{__make}
+#%{__make} -C dcoppython
+#cd dcopperl
+#perl Makefile.PL <<EOF
+#$QTDIR/include
+#$QTDIR/lib
+#%{_includedir}/kde
+#%{_libdir}
+#EOF
+#mkdir -p blib/bin
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 install -d $RPM_BUILD_ROOT/usr/lib/python2.1/site-packages
+
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
-%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
-%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
+
+#%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
+#%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
