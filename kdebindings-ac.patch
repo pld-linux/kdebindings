@@ -18,8 +18,17 @@
  );
  
  sub MY::xs_c {
---- kdebindings-3.3.0/admin/acinclude.m4.in.orig	2004-08-30 14:00:55.242003048 +0200
-+++ kdebindings-3.3.0/admin/acinclude.m4.in	2004-08-30 14:01:34.344058632 +0200
+--- kdebindings-3.3.0/admin/acinclude.m4.in.niedakh	2004-07-26 16:13:36.000000000 +0200
++++ kdebindings-3.3.0/admin/acinclude.m4.in	2004-09-02 16:01:00.853668704 +0200
+@@ -1451,7 +1451,7 @@
+ else
+   qt_libdirs="$ac_qt_libraries $qt_libdirs"
+   # if the Qt was given, the chance is too big that libqt.* doesn't exist
+-  qt_libdir=NONE
++  qt_libdir=
+   for dir in $qt_libdirs; do
+     try="ls -1 $dir/${LIBQT_GLOB}"
+     if test -n "`$try 2> /dev/null`"; then qt_libdir=$dir; break; else echo "tried $dir" >&AC_FD_CC ; fi
 @@ -4170,13 +4170,7 @@
    LIBPYTHON=-lpython$version
  fi
