@@ -1,6 +1,6 @@
 # --with-java	enable java, requires jdk (java-[sun,ibm,blackdown])
 # _without_alsa - disable alsa
-# The commented pkgs are not provided, because I have no reason to believe they work, but the 
+# The commented pkgs are not provided, because I have no reason to believe they work, but the
 # commented stuff works. KDE jsut does not provide the commented packages at the moment, but they will be
 # available in 3.2, since Richard Dale returned to KDE (he is the maintainer of kdebindings and was away
 # for some time).
@@ -452,7 +452,7 @@ export QTDIR=/usr/X11R6
 #mkdir -p blib/bin
 #%%{__make}
 # This one should stay commented (takes too long)
-#%%{__make} test 
+#%%{__make} test
 #cd ..
 
 # kalyptus compilation
