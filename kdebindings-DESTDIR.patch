@@ -1,0 +1,90 @@
+--- kdebindings-3.1/qtsharp/src/bindings/Makefile.am.orig	Thu Nov  7 22:29:08 2002
++++ kdebindings-3.1/qtsharp/src/bindings/Makefile.am	Mon Dec  2 10:49:23 2002
+@@ -14,10 +14,10 @@
+ 	-rm *.cs
+ 
+ install:
+-	if ! test -d $(libdir); then $(INSTALL) -d -m 0755 $(libdir); fi
+-	$(INSTALL) -m 0644 Qt.dll $(libdir)
++	if ! test -d $(libdir); then $(INSTALL) -d -m 0755 $(DESTDIR)$(libdir); fi
++	$(INSTALL) -m 0644 Qt.dll $(DESTDIR)$(libdir)
+ 
+ uninstall:
+-	rm -rf $(libdir)/Qt.dll
++	rm -rf $(DESTDIR)$(libdir)/Qt.dll
+ 
+ .PHONY: all build sources clean distclean install uninstall
+--- kdebindings-3.1/qtsharp/src/examples/samples/Makefile.am.orig	Mon Dec  2 10:52:50 2002
++++ kdebindings-3.1/qtsharp/src/examples/samples/Makefile.am	Mon Dec  2 10:52:00 2002
+@@ -8,15 +8,15 @@
+ distclean: clean
+ 
+ install:
+-	mkdir -p $(datadir)/doc/qtcsharp/samples
+-	cat display.cs | gzip -9c > $(datadir)/doc/qtcsharp/samples/display.cs.gz
+-	cat eventhandling.cs | gzip -9c > $(datadir)/doc/qtcsharp/samples/eventhandling.cs.gz
+-	cat hello.cs | gzip -9c > $(datadir)/doc/qtcsharp/samples/hello.cs.gz
+-	cat scribblewindow.cs | gzip -9c > $(datadir)/doc/qtcsharp/samples/scribblewindow.cs.gz
+-	cat mandelbrot.cs | gzip -9c > $(datadir)/doc/qtcsharp/samples/mandelbrot.cs.gz
++	mkdir -p $(DESTDIR)$(datadir)/doc/qtcsharp/samples
++	cat display.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/samples/display.cs.gz
++	cat eventhandling.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/samples/eventhandling.cs.gz
++	cat hello.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/samples/hello.cs.gz
++	cat scribblewindow.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/samples/scribblewindow.cs.gz
++	cat mandelbrot.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/samples/mandelbrot.cs.gz
+ 
+ uninstall:
+-	rm -rf $(datadir)/doc/qtcsharp/samples/*.cs.gz
+-	rm -rf $(datadir)/doc/qtcsharp/samples/*.cs
++	rm -rf $(DESTDIR)$(datadir)/doc/qtcsharp/samples/*.cs.gz
++	rm -rf $(DESTDIR)$(datadir)/doc/qtcsharp/samples/*.cs
+ 
+ .PHONY: all clean distclean install
+--- kdebindings-3.1/qtsharp/src/examples/tutorials/Makefile.am.orig	Thu Nov  7 22:33:48 2002
++++ kdebindings-3.1/qtsharp/src/examples/tutorials/Makefile.am	Mon Dec  2 10:51:19 2002
+@@ -8,17 +8,17 @@
+ distclean: clean
+ 
+ install:
+-	mkdir -p $(datadir)/doc/qtcsharp/tutorials
+-	cat t1.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t1.cs.gz
+-	cat t2.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t2.cs.gz
+-	cat t3.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t3.cs.gz
+-	cat t4.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t4.cs.gz
+-	cat t5.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t5.cs.gz
+-	cat t6.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t6.cs.gz
+-	cat t7.cs | gzip -9c > $(datadir)/doc/qtcsharp/tutorials/t7.cs.gz
++	mkdir -p $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials
++	cat t1.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t1.cs.gz
++	cat t2.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t2.cs.gz
++	cat t3.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t3.cs.gz
++	cat t4.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t4.cs.gz
++	cat t5.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t5.cs.gz
++	cat t6.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t6.cs.gz
++	cat t7.cs | gzip -9c > $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/t7.cs.gz
+ 
+ uninstall:
+-	rm -rf $(datadir)/doc/qtcsharp/tutorials/*.cs.gz
+-	rm -rf $(datadir)/doc/qtcsharp/tutorials/*.cs
++	rm -rf $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/*.cs.gz
++	rm -rf $(DESTDIR)$(datadir)/doc/qtcsharp/tutorials/*.cs
+ 
+ .PHONY: all clean distclean install
+--- kdebindings-3.1/qtsharp/src/uicsharp/Makefile.am.orig	Thu Nov  7 22:36:45 2002
++++ kdebindings-3.1/qtsharp/src/uicsharp/Makefile.am	Mon Dec  2 11:03:35 2002
+@@ -11,11 +11,11 @@
+ 
+ install: uicsharp.exe
+ 	-$(MAKE) uninstall
+-	-mkdir $(bindir)
+-	install -o root -g root -m 0755 uicsharp.exe $(bindir)/uicsharp.exe
+-	ln -s $(bindir)/uicsharp.exe $(bindir)/uicsharp
++	-mkdir $(DESTDIR)$(bindir)
++	-install -o root -g root -m 0755 uicsharp.exe $(DESTDIR)$(bindir)/uicsharp.exe
++	ln -s $(DESTDIR)$(bindir)/uicsharp.exe $(DESTDIR)$(bindir)/uicsharp
+ 
+ uninstall:
+-	-rm -rf $(bindir)/uicsharp.exe $(bindir)/uicsharp
++	-rm -rf $(DESTDIR)$(bindir)/uicsharp.exe $(DESTDIR)$(bindir)/uicsharp
+ 
+ .PHONY: all clean install uninstall

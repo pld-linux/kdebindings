@@ -1,0 +1,11 @@
+--- kdebindings/dcopperl/Makefile.PL.orig	Sat Nov 16 22:09:42 2002
++++ kdebindings/dcopperl/Makefile.PL	Sat Nov 16 22:10:04 2002
+@@ -26,7 +26,7 @@
+ WriteMakefile(
+     NAME	=> 'DCOP',
+     VERSION_FROM => 'DCOP.pm',
+-    INC		=> "-I$qt_inc -I$kde_inc",
++    INC		=> "-I$qt_inc -I$kde_inc -I/usr/X11R6/include",
+     LIBS	=> "-L$qt_lib -lqt-mt -L$kde_lib -lkdecore -lDCOP",
+     XS		=> {'DCOP.xs' => 'DCOP.cpp'},
+     XSOPT	=> '-C++',
