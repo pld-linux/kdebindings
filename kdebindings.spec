@@ -1,33 +1,46 @@
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
+Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	2.2
-Release:	4
+Version:	%{_version}
+Release:	%{_release}
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/stable/2.2/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
 BuildRequires:	kdelibs-devel
-BuildRequires:	kdelibs-sound-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	fam-devel
+#BuildRequires:	fam-devel
+BuildRequires:	gettext-devel
+BuildRequires:	gtk+-devel
+# Well... what's that?? :)
+#BuildRequires:	some-working-Java-SDK
+BuildRequires:	gcc-objc
 %ifnarch ia64
 # Remove the "#" when the build system has finally run out of crack
-# BuildRequires: mozilla-devel
+BuildRequires: mozilla-devel
 %endif
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
+%define		_htmldir	/usr/share/doc/kde/HTML
 %define		_mandir		%{_prefix}/man
 
 %description
-KDE/DCOP bindings to non-C++ languages.
+Bindings fot the K Desktop Environment:
+Provides interfaces to many diferent programming languages to use KDE native resources and
+widgets.
 
 %description -l pl
 Dowi±zania KDE/DCOP dla jêzyków innych ni¿ C++.
+
+%description -l pt_BR
+Bindings para o K Desktop Environment:
+Provê interfaces para diferentes linguagens de programação
+para uso da interface nativa do KDE
 
 %package devel
 Summary:	Development files for kdebindings
@@ -89,39 +102,47 @@ u¿ywanego przez KDE.
 %setup -q
 
 %build
-%{__make} -f Makefile.cvs
-QTDIR=%{_prefix}
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+kde_icondir="%{_pixmapsdir}"; export kde_icondir
+#%{__make} -f Makefile.cvs
+
+#QTDIR=%{_prefix}
+
 %configure \
-	--without-java \
-	--with-pythondir=/usr/lib/python2.1/site-packages
+	--with-pythondir=/usr/lib/python2.1/site-packages \
+	--enable-objc \
+	--without-java
 
-# UGLY workaround for python bug...
-cat >fPIC <<EOF
-#!/bin/sh
-exec %{__cc} -fPIC \$@
-EOF
-chmod +x fPIC
-PATH="$PATH:`pwd`"; export PATH
-# end workaround
-
-%{__make}
-%{__make} -C dcoppython
-cd dcopperl
-perl Makefile.PL <<EOF
-$QTDIR/include
-$QTDIR/lib
-%{_includedir}/kde
-%{_libdir}
-EOF
-mkdir -p blib/bin
+## UGLY workaround for python bug...
+#cat >fPIC <<EOF
+##!/bin/sh
+#exec %{__cc} -fPIC \$@
+#EOF
+#chmod +x fPIC
+#PATH="$PATH:`pwd`"; export PATH
+## end workaround
+#
+#%{__make}
+#%{__make} -C dcoppython
+#cd dcopperl
+#perl Makefile.PL <<EOF
+#$QTDIR/include
+#$QTDIR/lib
+#%{_includedir}/kde
+#%{_libdir}
+#EOF
+#mkdir -p blib/bin
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 install -d $RPM_BUILD_ROOT/usr/lib/python2.1/site-packages
+
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
-%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
-%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
+
+#%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
+#%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
