@@ -17,8 +17,6 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
 # Source0-md5: 63f7cd3ae52397c2182527899efb4c80
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-ac.patch
-Patch1:		%{name}-dcopperl.patch
-Patch2:		%{name}-DESTDIR.patch
 URL:		http://www.kde.org/
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
