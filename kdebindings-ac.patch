@@ -11,8 +11,8 @@
  python_moddir=$python_moddir/python$version
  if test ! -r $python_moddir/copy.py; then
    python_moddir=no
---- Makefile.PL~	2004-08-28 17:23:49.247677128 +0200
-+++ Makefile.PL	2004-08-28 17:24:16.094595776 +0200
+--- kdebindings-3.3.0/dcopperl/Makefile.PL~	2004-08-28 17:23:49.247677128 +0200
++++ kdebindings-3.3.0/dcopperl/Makefile.PL	2004-08-28 17:24:16.094595776 +0200
 @@ -17,6 +17,7 @@
      XS		=> {'DCOP.xs' => 'DCOP.cpp'},
      XSOPT	=> '-C++',
@@ -21,8 +21,8 @@
  );
  
  sub MY::xs_c {
---- Makefile.PL.in~	2004-08-28 17:35:27.162577936 +0200
-+++ Makefile.PL.in	2004-08-28 17:34:57.554079112 +0200
+--- kdebindings-3.3.0/dcopperl/Makefile.PL.in~	2004-08-28 17:35:27.162577936 +0200
++++ kdebindings-3.3.0/dcopperl/Makefile.PL.in	2004-08-28 17:34:57.554079112 +0200
 @@ -17,6 +17,7 @@
      XS		=> {'DCOP.xs' => 'DCOP.cpp'},
      XSOPT	=> '-C++',
