@@ -10,7 +10,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.
 URL:		http://www.kde.org/
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
-BuildRequires:	kdelibs-devel
+BuildRequires:	kdelibs-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	fam-devel
