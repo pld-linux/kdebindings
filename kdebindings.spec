@@ -30,6 +30,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
 #BuildRequires:	pnet >= 0.4.8
+BuildRequires:	python-devel-src >= 2.1
 BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	ruby-devel
@@ -393,16 +394,13 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %prep
 %setup -q
 %patch100 -p1
-%patch0 -p1
+%patch0 -p1 -b .niedakh
 ##%patch2 -p1
 
 %build
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE python\"" > python/configure.in.in
-
-# dcoppython is broken as they say
-echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE dcoppython\"" > dcoppython/configure.in.in
 
 cp %{_datadir}/automake/config.sub admin
 #export UNSERMAKE=/usr/share/unsermake/unsermake
@@ -412,7 +410,7 @@ cp %{_datadir}/automake/config.sub admin
 	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with-extra-includes=%{py_incdir} \
-	--with-pythondir=%{py_sitedir}
+	--with-pythondir=%{py_libdir}
 
 %{__make}
 
@@ -492,8 +490,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files python-dcop
 %defattr(644,root,root,755)
-%{py_sitedir}/pydcop.py
-%attr(755,root,root) %{py_sitedir}/pcop.so
+%{py_libdir}/pydcop.py
+%attr(755,root,root) %{py_libdir}/site-packages/pcop.so
 
 # C bindings for qt and kde using the smoke technology
 
