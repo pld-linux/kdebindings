@@ -13,7 +13,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	3.1
-Release:	0.6
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
@@ -80,7 +80,6 @@ Dowi±zania jêzyka C dla dcop
 Summary:        dcop-c header files
 Summary(pl):    Pliki nag³ówkowe dla dcop-c
 Group:          X11/Development/Libraries
-Requires:       libgcc-devel
 Requires:	kdelibs-devel >= %{version}
 Requires:	gtk+-devel >= 1.2.6
 Requires:	%{name}-dcop-c = %{version}
@@ -211,7 +210,7 @@ w dowolnej aplikacji.
 Summary:        kjsembed header files
 Summary(pl):    Pliki nag³ówkowe dla kjsembed
 Group:          X11/Development/Libraries
-Requires:       %{name} = %{version}
+Requires:       %{name}-kjsembed = %{version}
 Requires:       kdelibs-devel >= %{version}
 
 %description kjsembed-devel
@@ -387,7 +386,7 @@ Wspó³dzielone biblioteki dla technologii XParts
 Summary:        xparts-interfaces header files
 Summary(pl):    Pliki nag³ówkowe dla xparts-interfaces
 Group:          X11/Development/Libraries
-Requires:       %{name} = %{version}
+Requires:       %{name}-xparts-interfaces = %{version}
 Requires:		kdelibs-devel >= %{version}
 
 %description xparts-interfaces-devel
