@@ -5,8 +5,6 @@
 # available in 3.2, since Richard Dale returned to KDE (he is the maintainer of kdebindings and was away
 # for some time).
 
-# TODO: see ???s in %files (wrong paths or too many files included)
-
 %define		_state		stable
 %define		_kdever		kde-3.1
 
