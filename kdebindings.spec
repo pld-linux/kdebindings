@@ -16,7 +16,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -422,7 +422,7 @@ kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 #%%{__make} -f Makefile.cvs
-export QTDIR=/usr/X11R6
+export QTDIR=/usr
 %configure  \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
 	--with%{!?_with_java:out}-java%{?_with_java:=/usr/lib/java} \
