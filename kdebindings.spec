@@ -1,12 +1,16 @@
+
+%define		_state		unstable
+%define		_kdever		kde-3.1-rc2
+
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.0.3
-Release:	1
+Version:	3.0.98
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 URL:		http://www.kde.org/
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
@@ -153,10 +157,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libdcopc.so.*
 %attr(755,root,root) %{_libdir}/lib*xparts.so.*
 
-%files python
-%defattr(644,root,root,755)
-/usr/lib/python2.1/*/*
-
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libdcopc.??
@@ -180,3 +180,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/lib/perl5/site_perl/*/*/DCOP.pm
 /usr/lib/perl5/site_perl/*/*/DCOP/Object.pm
 %{_mandir}/man3/DCOP.3pm*
+
+%files python
+%defattr(644,root,root,755)
+/usr/lib/python2.1/*/*
