@@ -10,7 +10,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
@@ -219,7 +219,8 @@ siê miêdzy sob±.
 Summary:	Python bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Python dla DCOP
 Group:		X11/Development/Libraries
-Requires:	python-devel >= 2.1
+# does it really need devel?
+%pyrequires_eq	python-devel
 Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-python
