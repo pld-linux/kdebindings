@@ -9,18 +9,18 @@
 # time).
 
 %define		_state		stable
-%define		_ver		3.2.0
+%define		_ver		3.2.2
 
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	2
+Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.2/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	b5721cec8c94bc4a3712e6c7c73934a5
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	5c00277c009ea97e7ca70c613f5fc87b
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-dcopperl.patch
 Patch2:		%{name}-DESTDIR.patch
