@@ -12,12 +12,13 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	3.1
-Release:	0.4
+Release:	0.5
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-dcopperl.patch
+Patch2:		%{name}-DESTDIR.patch
 URL:		http://www.kde.org/
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
@@ -283,6 +284,7 @@ Wspó³dzielone biblioteki dla technologii XParts
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -307,6 +309,8 @@ $QTDIR/lib
 EOF
 mkdir -p blib/bin
 %{__make}
+# This one should stay commented (takes too long)
+#%{__make} test 
 cd ..
 
 # kalyptus compilation
@@ -321,7 +325,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/usr/lib/python2.1/site-packages
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install DESTDIR="$RPM_BUILD_ROOT" destdir="$RPM_BUILD_ROOT"
 
 # dcop perl bindings installation
 %{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
