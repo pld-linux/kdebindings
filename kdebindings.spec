@@ -1,15 +1,9 @@
 #
 # Conditional build:
-%bcond_with	java	# enable java, requires jdk (java-[sun,ibm,blackdown])
-#
-# The commented pkgs are not provided, because I have no reason to believe they
-# work, but the commented stuff works. KDE jsut does not provide the commented
-# packages at the moment, but they will be available in 3.2, since Richard Dale
-# returned to KDE (he is the maintainer of kdebindings and was away for some
-# time).
+%bcond_with java # enable java
 
-%define		_state		stable
-%define		_ver		3.2.2
+%define		_state	stable
+%define		_ver	3.3.0
 
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
@@ -19,13 +13,12 @@ Version:	%{_ver}
 Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	5c00277c009ea97e7ca70c613f5fc87b
-Patch0:		%{name}-am.patch
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
+# Source0-md5: 63f7cd3ae52397c2182527899efb4c80
+Patch100:	%{name}-branch.diff
+Patch0:		%{name}-ac.patch
 Patch1:		%{name}-dcopperl.patch
 Patch2:		%{name}-DESTDIR.patch
-# This is an ugly hack to make am work without regenerating
-Patch3:		%{name}-am_hack.patch
 URL:		http://www.kde.org/
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
@@ -35,13 +28,11 @@ BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	mono-devel >= 0.16
-BuildRequires:	pnet >= 0.4.8
-#BuildRequires:	perl-modules >= 5.6.1
-#BuildRequires:	python-devel >= 2.1
-%ifnarch ia64
-BuildRequires:	mozilla-devel
-%endif
+#BuildRequires:	mono-devel >= 0.16
+#BuildRequires:	pnet >= 0.4.8
+BuildRequires:	perl-modules >= 5.6.1
+BuildRequires:	python-devel >= 2.1
+BuildRequires:	ruby-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,138 +46,112 @@ Dowi±zania KDE/qt dla jêzyków innych ni¿ C++ pozwalaj±ce u¿ywaæ
 natywnych dla KDE zasobów i widgetów.
 
 %description -l pt_BR
-Bindings para o K Desktop Environment:
-Provê interfaces para diferentes linguagens de programação
-para uso da interface nativa do KDE.
+Bindings para o K Desktop Environment: Provê interfaces para
+diferentes linguagens de programação para uso da interface nativa do
+KDE.
 
-%package dcop-c
+%package kalyptus 
+Summary: QT/KDE bindings generator 
+Summary(pl):Generator dowi±zañ do QT/KDE 
+Group: X11/Development/Libraries
+Requires: perl >= 5.6.1 
+Requires: kdelibs >= 9:%{version} 
+Requires:qt >= 3.1
+
+%description kalyptus 
+Kalyptus creates language bindings for Qt and KDE C++ libraries 
+directly from the headers. 
+
+%description kalyptus -l pl 
+Kalyptus s³u¿y do generowania dowi±zañ do QT/KDE bezpo¶rednio
+z plików nag³ówkowych.
+
+# c bindings
+%package c-dcop
 Summary:	C bindings for DCOP
-Summary(pl):	Dowi±zania jêzyka C dla DCOP
+Summary(pl):	Dowi±zania w jêzyku C dla DCOP
 Group:		X11/Development/Libraries
 Requires:	libgcc
 Requires:	kdelibs >= 9:%{version}
 Requires:	gtk+ >= 1.2.6
+Obsoletes:	kdebindings-dcop-c
 
-%description dcop-c
-C bindings for DCOP.
+%description c-dcop
+C bindings for the Desktop COmmunications Protocol used by KDE
+applications to share information and communicate between each other.
 
-%description dcop-c -l pl
-Dowi±zania jêzyka C dla DCOP.
+%description c-dcop -l pl
+Dowi±zania jêzyka C do Desktop COmmunications Protocol (DCOP) u¿ywanego
+przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
+sob±.
 
-%package dcop-c-devel
-Summary:	dcop-c header files
-Summary(pl):	Pliki nag³ówkowe dla dcop-c
+%package c-dcop-devel
+Summary:	C bindings for DCOP [development files]
+Summary(pl):	Dowi±zania w jêzyku C dla DCOP [nag³ówki]
 Group:		X11/Development/Libraries
 Requires:	kdelibs-devel >= 9:%{version}
 Requires:	gtk+-devel >= 1.2.6
-Requires:	%{name}-dcop-c = %{version}-%{release}
+Requires:	%{name}-c-dcop = %{version}-%{release}
+Obsoletes:	kdebindings-dcop-c-devel
 
-%description dcop-c-devel
-dcop-c header files.
+%description c-dcop-devel
+c-dcop header files.
 
-%description dcop-c-devel -l pl
-Pliki nag³ówkowe dla dcop-c.
+%description c-dcop-devel -l pl
+Pliki nag³ówkowe dla c-dcop.
 
-#%package dcop-java
-#Summary:	Java bindings for DCOP
-#Summary(pl):	Dowi±zania jêzyka Java dla DCOP
-#Group:		X11/Development/Libraries
-#Requires:	jdk
-#Requires:	kdelibs >= 9:%{version}
-#Requires:	qt >= 3.1
-#Requires:	libart_lgpl
 
-#%description dcop-java
-#Java bindings for DCOP.
 
-#%description dcop-java -l pl
-#Dowi±zania jêzyka Java dla DCOP.
-
-#%package dcop-perl
-#Summary:	Perl bindings for DCOP
-#Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
-#Group:		X11/Development/Libraries
-#Requires:	perl-modules >= 5.6.1
-#Requires:	kdelibs >= 9:%{version}
-#Requires:	qt >= 3.1
-
-#%description dcop-perl
-#Perl bindings for DCOP.
-
-#%description dcop-perl -l pl
-#Dowi±zania jêzyka Perl dla DCOP.
-
-#%package dcop-python
-#Summary:	Python bindings for DCOP
-#Summary(pl):	Dowi±zania jêzyka Python dla DCOP
-#Group:		X11/Development/Libraries
-#Requires:	python-devel >= 2.1
-#Requires:	kdelibs >= 9:%{version}
-#Requires:	qt >= 3.1
-
-#%description dcop-python
-#Python bindings for DCOP
-
-#%description dcop-python -l pl
-#Dowi±zania jêzyka Python dla DCOP.
-
-#%package kalyptus
-#Summary:	QT/KDE bindings generator
-#Summary(pl):	Generator dowi±zañ do QT/KDE
-#Group:		X11/Development/Libraries
-#Requires:	perl >= 5.6.1
-#Requires:	kdelibs >= 9:%{version}
-#Requires:	qt >= 3.1
-
-#%description kalyptus
-#KALYPTUS creates language bindings for Qt and KDE C++ libraries
-#directly from the headers.
-#
-#%description kalyptus -l pl
-#Kalyptus s³u¿y do generowania dowi±zañ do QT/KDE bezpo¶rednio
-#z plików nag³ówkowych.
-
-%package kde-c
-Summary:	C bindings for KDE
-Summary(pl):	Dowi±zania jêzyka C dla KDE
+# java bindings
+%package	java-dcop
+Summary:	Java bindings for DCOP
+Summary(pl):	Dowi±zania jêzyka Java dla DCOP
 Group:		X11/Development/Libraries
-Requires:	libgcc
-Requires:	%{name}-qt-c = %{version}-%{release}
+Requires:	jdk
 Requires:	kdelibs >= 9:%{version}
+Requires:	qt >= 3.1
+Requires:	libart_lgpl
+Obsoletes:	kdebindings-dcop-java
 
-%description kde-c
-C bindings for KDE.
+%description java-dcop
+Java bindings for the Desktop COmmunications Protocol used by KDE
+applications to share information and communicate between each other.
 
-%description kde-c -l pl
-Dowi±zania jêzyka C dla KDE.
+%description java-dcop -l pl
+Dowi±zania jêzyka Java do Desktop COmmunications Protocol (DCOP) u¿ywanego
+przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
+sob±.
 
-%package kde-java
+%package java-qt
+Summary:	Java bindings for qt
+Summary(pl):	Dowi±zania jêzyka Java dla qt
+Group:		X11/Development/Libraries
+Requires:	jdk
+Requires:	qt >= 3.1
+Obsoletes:	kdebindings-qt-java
+
+%description java-qt
+Java bindings for qt.
+
+%description java-qt -l pl
+Dowi±zania jêzyka Java dla qt.
+
+%package java-kde
 Summary:	Java bindings for KDE
 Summary(pl):	Dowi±zania jêzyka Java dla KDE
 Group:		X11/Development/Libraries
 Requires:	jdk
 Requires:	%{name}-qt-java = %{version}-%{release}
 Requires:	kdelibs >= 9:%{version}
+Obsoletes:	kdebindings-kde-java
 
-%description kde-java
+%description java-kde
 Java bindings for KDE.
 
-%description kde-java -l pl
+%description java-kde -l pl
 Dowi±zania jêzyka Java dla KDE.
 
-%package kde-java-devel
-Summary:	kde-java header files
-Summary(pl):	Pliki nag³ówkowe dla kde-java
-Group:		X11/Development/Libraries
-Requires:	%{name}-kde-java = %{version}-%{release}
-Requires:	%{name}-qt-java-devel = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
-
-%description kde-java-devel
-kde-java header files.
-
-%description kde-java-devel -l pl
-Pliki nag³ówkowe dla kde-java.
+# javascript scripting for KDE applications
 
 %package kjsembed
 Summary:	A library for embedding the KJS Javascript interpreter
@@ -214,6 +179,8 @@ kjsembed header files.
 %description kjsembed-devel -l pl
 Pliki nag³ówkowe dla kjsembed.
 
+# mozilla  kpart - not working
+
 %package kmozilla
 Summary:	Mozilla kpart
 Summary(pl):	KPart mozilli
@@ -226,95 +193,83 @@ Requires:	%{name}-xparts-kde = %{version}-%{release}
 This KPart allows using mozilla as a browser engine.
 
 %description kmozilla -l pl
-Kpart umo¿liwiaj±cy u¿ywanie mozilli jako silnika przegl±darki
-zamiast khtml.
+Kpart umo¿liwiaj±cy u¿ywanie mozilli jako silnika przegl±darki zamiast
+khtml.
 
-#%package kde-objc
-#Summary:	ObjC bindings for KDE
-#Summary(pl):	Dowi±zania jêzyka ObjC dla KDE
-#Group:		X11/Development/Libraries
-#Requires:	%{name} = %{version}
-#Requires:	libobjc
-#Requires:	kdelibs >= 3.1
+# perl bindings
 
-#%description kde-objc
-#ObjC bindings for KDE.
-
-#%description kde-objc -l pl
-#Dowi±zania jêzyka ObjC dla KDE.
-
-%package qt-c
-Summary:	C bindings for qt
-Summary(pl):	Dowi±zania jêzyka C dla qt
+%package perl-dcop
+Summary:	Perl bindings for DCOP
+Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
 Group:		X11/Development/Libraries
-Requires:	libgcc
+Requires:	perl-modules >= 5.6.1
+Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 3.1
+Obsoletes:	kdebindings-dcop-perl
 
-%description qt-c
-C bindings for qt.
+%description perl-dcop
+Perl bindings for the Desktop COmmunications Protocol used by KDE
+applications to share information and communicate between each other.
 
-%description qt-c -l pl
-Dowi±zania jêzyka C dla qt.
+%description perl-dcop -l pl
+Dowi±zania jêzyka Perl do Desktop COmmunications Protocol (DCOP) u¿ywanego
+przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
+sob±.
 
-%package qt-csharp
-Summary:	C# bindings for qt
-Summary(pl):	Dowi±zania jêzyka C# dla qt
+# python bindings, only dcop as qt and kde ones are in py{Qt,KDE}.spec
+%package python-dcop
+Summary:	Python bindings for DCOP
+Summary(pl):	Dowi±zania jêzyka Python dla DCOP
 Group:		X11/Development/Libraries
-Requires:	mono-devel >= 0.16
-Requires:	pnet >= 0.4.8
+Requires:	python-devel >= 2.1
+Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 3.1
+Obsoletes:	kdebindings-dcop-python
 
-%description qt-csharp
-C# bindings for qt.
+%description python-dcop
+Python bindings for the Desktop COmmunications Protocol used by KDE
+applications to share information and communicate between each other.
 
-%description qt-csharp -l pl
-Dowi±zania jêzyka C# dla qt.
+%description python-dcop -l pl 
+Dowi±zania jêzyka Python do Desktop COmmunications Protocol (DCOP) u¿ywanego
+przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
+sob±.
 
-%package qt-java
-Summary:	Java bindings for qt
-Summary(pl):	Dowi±zania jêzyka Java dla qt
+
+%package ruby-qt
+Summary:	A SMOKE library for qt
+Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	jdk
 Requires:	qt >= 3.1
+Requires:	ruby
+Requires:	%{name}-smoke-qt = %{version}-%{release}
 
-%description qt-java
-Java bindings for qt.
+%description ruby-qt
+A Qt bindings for Ruby using the SMOKE technology.
 
-%description qt-java -l pl
-Dowi±zania jêzyka Java dla qt.
+%description ruby-qt -l pl
+Dowi±zania Qt dla Ruby przy u¿yciu technologii SMOKE.
 
-%package qt-java-devel
-Summary:	qt-java header files
-Summary(pl):	Pliki nag³ówkowe dla qt-java
+%package ruby-kde
+Summary:	A SMOKE library for qt
+Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	%{name}-qt-java = %{version}
-Requires:		qt-devel >= 3.1
+Requires:	qt >= 3.1
+Requires:	kdelibs >= 9:%{version}
+Requires:	%{name}-ruby-qt = %{version}-%{release}
+Requires:	%{name}-smoke-kde = %{version}-%{release}
 
-%description qt-java-devel
-qt-java header files.
+%description ruby-kde
+A KDE bindings for Ruby using the SMOKE technology.
 
-%description qt-java-devel -l pl
-Pliki nag³ówkowe dla qt-java.
-
-#%package qt-objc
-#Summary:	ObjC bindings for qt
-#Summary(pl):	Dowi±zania jêzyka ObjC dla qt
-#Group:		X11/Development/Libraries
-#Requires:	libobjc
-#Requires:	qt >= 3.1
-
-#%description qt-objc
-#ObjC bindings for qt.
-
-#%description qt-objc -l pl
-#Dowi±zania jêzyka ObjC dla qt.
+%description ruby-kde -l pl
+Dowi±zania KDE dla Ruby przy u¿yciu technologii SMOKE.
 
 %package smoke-qt
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	qt >= 3.1
-Requires:	perl >= 5.6.1
 
 %description smoke-qt
 SMOKE library (Scripting Meta Object Kompiler Engine) dla qt.
@@ -328,7 +283,6 @@ Summary(pl):	Pliki nag³ówkowe dla smoke-qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 Requires:	qt-devel >= 3.1
-Requires:	perl-modules >= 5.6.1
 
 %description smoke-qt-devel
 smoke-qt header files.
@@ -336,11 +290,41 @@ smoke-qt header files.
 %description smoke-qt-devel -l pl
 Pliki nag³ówkowe dla smoke-qt.
 
+%package smoke-kde
+Summary:	A SMOKE library for qt
+Summary(pl):	Biblioteka SMOKE dla qt
+Group:		X11/Development/Libraries
+Requires:	%{name}-smoke-qt = %{version}-%{release}
+Requires:	kdelibs >= 9:%{version}
+
+%description smoke-kde
+SMOKE library (Scripting Meta Object Kompiler Engine) dla KDE.
+
+%description smoke-kde -l pl
+Biblioteka SMOKE (Silnik kompilatora metaobiektów skryptowych) dla KDE.
+
+%package smoke-kde-devel
+Summary:	smoke-qt header files
+Summary(pl):	Pliki nag³ówkowe dla smoke-qt
+Group:		X11/Development/Libraries
+Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
+Requires:	%{name}-smoke-kde = %{version}-%{release}
+Requires:	kdelibs-devel >= 9:%{version}
+
+%description smoke-kde-devel
+smoke-kde header files.
+
+%description smoke-kde-devel -l pl
+Pliki nag³ówkowe dla smoke-kde.
+
+
+# xparts, dont work (dcopc doesnt work)
+
 %package xparts-gtk
 Summary:	XParts technology for gtk
 Summary(pl):	Technologia XParts dla gtk
 Group:		X11/Development/Libraries
-Requires:	%{name}-dcop-c = %{version}-%{release}
+Requires:	%{name}-c-dcop = %{version}-%{release}
 
 %description xparts-gtk
 XParts technology: gtk embedding.
@@ -352,7 +336,7 @@ Technologia XParts: zagnie¿d¿anie gtk.
 Summary:	xparts-gtk header files
 Summary(pl):	Pliki nag³ówkowe dla xparts-gtk
 Group:		X11/Development/Libraries
-Requires:	%{name}-dcop-c-devel = %{version}-%{release}
+Requires:	%{name}-c-dcop-devel = %{version}-%{release}
 
 %description xparts-gtk-devel
 xparts-gtk header files.
@@ -411,222 +395,244 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 
 %prep
 %setup -q
-##%patch0 -p1
-##%patch1 -p1
+%patch100 -p1
+%patch0 -p1
 ##%patch2 -p1
-%patch3 -p1
 
 %build
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
-#%%{__make} -f Makefile.cvs
-export QTDIR=/usr
+
+# dont build pyQt and pyKDE since we build it from a separate spec
+echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE python\"" > python/configure.in.in
+
+# dcoppython is broken as they say
+echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE dcoppython\"" > dcoppython/configure.in.in
+
+cp %{_datadir}/automake/config.sub admin
+#export UNSERMAKE=/usr/share/unsermake/unsermake
+%{__make} -f admin/Makefile.common cvs
+
+
 %configure  \
-	--with-pythondir=/usr/lib/python2.1/site-packages \
-	--with%{!?with_java:out}-java%{?with_java:=/usr/lib/java} \
-	--%{?debug:en}%{!?debug:dis}able-debug
+	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
+	--%{?debug:en}%{!?debug:dis}able-debug \
+	--with-extra-includes=%{py_incdir} \
+	--with-pythondir=%{py_scriptdir}
 
-#%%{__make}
-#{__make} -C dcopjava
-#{__make} -C dcoppython
+%{__make}
 
-# dcop perl bindings compilation
-#cd dcopperl
-#perl Makefile.PL <<EOF
-#$QTDIR/include/qt
-#$QTDIR/lib
-#%%{_includedir}/kde
-#%%{_libdir}
-#EOF
-#mkdir -p blib/bin
-#%%{__make}
-# This one should stay commented (takes too long)
-#%%{__make} test
-#cd ..
-
-# kalyptus compilation
-#cd kalyptus
-#%%{__autoconf}
-#%%configure
-#%%{__make}
-#cd ..
+cd kalyptus
+%{__autoconf}
+%configure
+%{__make}
+cd -
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	destdir=$RPM_BUILD_ROOT
+	destdir=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir} \
+	kde_libs_htmldir=%{_kdedocdir}
 
-# dcop perl bindings installation
-#%%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
 
-# kalyptus instalation
-#cd kalyptus
-#%%{__make} install DESTDIR="$RPM_BUILD_ROOT"
-#cd ..
-
-#%%{__make} -C dcopjava install DESTDIR="$RPM_BUILD_ROOT"
-#%%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
-rm -rf $RPM_BUILD_ROOT%{_bindir}/uicsharp
-cd $RPM_BUILD_ROOT%{_bindir}
-ln -sf uicsharp.exe uicsharp
-cd ..
+%{__make} -C kalyptus install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	destdir=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir} \
+	kde_libs_htmldir=%{_kdedocdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
-%files dcop-c
+
+# Javascript scripting for KDE applications
+
+%files kjsembed
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libdcopc.so.1.0.0
+%attr(755,root,root) %{_bindir}/jsaccess
+%attr(755,root,root) %{_bindir}/kjscmd
+%attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
+%{_libdir}/kde3/libcustomobjectplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libcustomobjectplugin.so
+%{_libdir}/kde3/libcustomqobjectplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libcustomqobjectplugin.so
+%{_libdir}/kde3/libimagefxplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libimagefxplugin.so
+%{_libdir}/kde3/libjsconsoleplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libjsconsoleplugin.so
+%{_libdir}/kde3/libqprocessplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libqprocessplugin.so
+%{_desktopdir}/kde/kjscmd.desktop
+%{_datadir}/apps/kjsembed/cmdline.js
+%{_datadir}/services/customobject_plugin.desktop
+%{_datadir}/services/customqobject_plugin.desktop
+%{_datadir}/services/imagefx_plugin.desktop
+%{_datadir}/services/qprocess_plugin.desktop
+%{_datadir}/servicetypes/binding_type.desktop
+%{_mandir}/man1/kjscmd.1*
 
-%files dcop-c-devel
+%files kjsembed-devel
 %defattr(644,root,root,755)
-%{_includedir}/dcopc
-%{_libdir}/libdcopc.la
-%attr(755,root,root) %{_libdir}/libdcopc.so
-%attr(755,root,root) %{_libdir}/libdcopc.so.1
+%{_includedir}/kjsembed
+%{_libdir}/*kjsembed.la
 
-#%if %{with java}
-#%files dcop-java
+# python bindings for dcop, others wont be built
+
+%files python-dcop
+%defattr(644,root,root,755)
+%{_datadir}/python2.3/pydcop.py
+%{_datadir}/python2.3/site-packages/pcop.la
+%{_datadir}/python2.3/site-packages/pcop.so
+
+# C bindings for qt and kde using the smoke technology
+
+%files smoke-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/*smokeqt.so.1.2.2
+
+%files smoke-qt-devel
+%defattr(644,root,root,755)
+%{_includedir}/smoke.h
+%{_libdir}/*smokeqt.la
+
+%files smoke-kde
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/*smokekde.so.1.2.2
+
+%files smoke-kde-devel
+%defattr(644,root,root,755)
+%{_includedir}/smoke.h
+%{_libdir}/*smokekde.la
+
+# ruby bindings
+
+%files ruby-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/qtrubyinit
+%attr(755,root,root) %{_bindir}/rbqtapi
+%attr(755,root,root) %{_bindir}/rbqtsh
+%attr(755,root,root) %{_bindir}/rbuic
+%{_libdir}/ruby/site_ruby/1.8/Qt.rb
+%{_libdir}/ruby/site_ruby/1.8/Qt/qtruby.rb
+%{_libdir}/ruby/site_ruby/1.8/*/qtruby.la
+%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qtruby.so.0.0.0
+
+%files ruby-kde
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/krubyinit
+%{_libdir}/ruby/site_ruby/1.8/KDE/korundum.rb
+%{_libdir}/ruby/site_ruby/1.8/Korundum.rb
+%{_libdir}/ruby/site_ruby/1.8/*/korundum.la
+%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/korundum.so.0.0.0
+
+# java bindings
+
+%if %{with java}
+
+#%files java-dcop
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/dcopidl2java
 #%%{_libdir}/libdcopc.la
 #%attr(755,root,root) %{_libdir}/libjavadcop.so
 #%%{_libdir}/java/org/kde/DCOP/*.class
-#%endif
 
-#%files dcop-perl
-#%defattr(644,root,root,755)
-#%%{_libdir}/perl5
-
-#%files dcop-python
-#%defattr(644,root,root,755)
-#%%{_usr}/lib/
-
-#%files kalyptus
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/kalyptus
-#%%{_datadir}/kalyptus
-
-%files kde-c
+%files java-qt
 %defattr(644,root,root,755)
-%{_libdir}/*kdec.la
-%attr(755,root,root) %{_libdir}/*kdec.so*
+%attr(755,root,root) %{_bindir}/javalib
+# DONT package it, using %doc on those files instead
+#%{_prefix}/doc/javalib
+%{_libdir}/java/qtjava.jar
+%{_libdir}/*qtjava*.la
+%attr(755,root,root) %{_libdir}/*qtjava*.so.1.0.0
+%doc qtjava/javalib/docs/en/*.html
+%doc qtjava/javalib/docs/en/*.sgml
 
-%if %{with java}
-%files kde-java
+
+%files java-kde
 %defattr(644,root,root,755)
-%dir %{_libdir}/java/org/kde
-%{_libdir}/java/org/kde/koala
+%attr(755,root,root) %{_bindir}/koala
 %{_libdir}/java/koala.jar
 %{_libdir}/*kdejava.la
 %attr(755,root,root) %{_libdir}/*kdejava.so.1.0.0
-
-%files kde-java-devel
-%defattr(644,root,root,755)
-%{_includedir}/kdejava
-%attr(755,root,root) %{_libdir}/*kdejava.so
-%attr(755,root,root) %{_libdir}/*kdejava.so.1
 %endif
 
-%files kjsembed
+# perl bindings
+%files perl-dcop
 %defattr(644,root,root,755)
-%{_libdir}/*kjsembed.la
-%attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
+%{perl_sitearch}/DCOP.pm
+%{perl_sitearch}/DCOP/Object.pm
+# contains RPMBUILDROOT, dont want to install it.
+# and no other perl module i have provides such a file
+#%{perl_sitearch}/auto/DCOP/.packlist
+%{perl_sitearch}/auto/DCOP/DCOP.bs
+%{perl_sitearch}/auto/DCOP/DCOP.so
+%{perl_sitearch}/perllocal.pod
+%{_mandir}/man3/DCOP.3pm*
 
-%files kjsembed-devel
-%defattr(644,root,root,755)
-%{_includedir}/kjsembed
-%attr(755,root,root) %{_libdir}/*kjsembed.so
-%attr(755,root,root) %{_libdir}/*kjsembed.so.1
+# C bindings
 
-%ifnarch ia64
-%files kmozilla
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kmozilla
-%{_libdir}/libkmozillapart.la
-%attr(755,root,root) %{_libdir}/libkmozillapart.so*
-%{_datadir}/services/kmozilla.desktop
-%endif
+#files c-dcop
+#defattr(644,root,root,755)
+#attr(755,root,root) %{_libdir}/libdcopc.so.1.0.0
 
-%files qt-c
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/clib
-%{_libdir}/*qtc.la
-%attr(755,root,root) %{_libdir}/*qtc.so*
+#files c-dcop-devel
+#defattr(644,root,root,755)
+#{_includedir}/dcopc
+#{_libdir}/libdcopc.la
+#attr(755,root,root) %{_libdir}/libdcopc.so
+#attr(755,root,root) %{_libdir}/libdcopc.so.1
 
-%files qt-csharp
+# kalyptus 
+%files kalyptus
 %defattr(644,root,root,755)
-%doc qtsharp/src/examples/samples/*.cs qtsharp/src/examples/tutorials/*.cs
-%attr(755,root,root) %{_bindir}/*uicsharp*
-%{_libdir}/*qtsharp.la
-%attr(755,root,root) %{_libdir}/Qt.dll
-%attr(755,root,root) %{_libdir}/*qtsharp.so*
-# ???
-#%%{_datadir}/doc/
+%attr(755,root,root) %{_bindir}/kalyptus
+%{_datadir}/kalyptus
 
-%if %{with java}
-%files qt-java
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/javalib
-# ???
-#%%{_prefix}/doc/javalib
-%doc qtjava/javalib/docs/en/*
-%{_libdir}/*qtjava.la
-%attr(755,root,root) %{_libdir}/*qtjava.so.1.*
-%{_libdir}/java/org/kde/qt
-%{_libdir}/java/qtjava.jar
 
-%files qt-java-devel
-%defattr(644,root,root,755)
-%{_includedir}/qtjava
-%attr(755,root,root) %{_libdir}/*qtjava.so
-%attr(755,root,root) %{_libdir}/*qtjava.so.1
-%endif
+# mozilla embedding 
+#%ifnarch ia64
+#%files kmozilla
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_bindir}/kmozilla
+#%{_libdir}/libkmozillapart.la
+#%attr(755,root,root) %{_libdir}/libkmozillapart.so*
+#%{_datadir}/services/kmozilla.desktop
+#%endif
 
-%files smoke-qt
-%defattr(644,root,root,755)
-%{_libdir}/*smokeqt.la
-%attr(755,root,root) %{_libdir}/*smokeqt.so.1.0.0
 
-%files smoke-qt-devel
-%defattr(644,root,root,755)
-%{_includedir}/smoke.h
-%attr(755,root,root) %{_libdir}/*smokeqt.so
-%attr(755,root,root) %{_libdir}/*smokeqt.so.1
+# xparts
 
-%files xparts-gtk
-%defattr(644,root,root,755)
-%{_libdir}/*gtkxparts.la
-%attr(755,root,root) %{_libdir}/*gtkxparts.so.0.0.0
+##%files xparts-gtk
+##%defattr(644,root,root,755)
+##%{_libdir}/*gtkxparts.la
+##%attr(755,root,root) %{_libdir}/*gtkxparts.so.0.0.0
 
-%files xparts-gtk-devel
-%defattr(644,root,root,755)
-%{_includedir}/xkparts/gtk*.h
-%attr(755,root,root) %{_libdir}/*gtkxparts.so
-%attr(755,root,root) %{_libdir}/*gtkxparts.so.?
+##%files xparts-gtk-devel
+##%defattr(644,root,root,755)
+##%{_includedir}/xkparts/gtk*.h
+##%attr(755,root,root) %{_libdir}/*gtkxparts.so
+##%attr(755,root,root) %{_libdir}/*gtkxparts.so.?
 
-%files xparts-interfaces
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/shell_xparthost
+##%files xparts-interfaces
+##%defattr(644,root,root,755)
+##%attr(755,root,root) %{_bindir}/shell_xparthost
 
-%files xparts-interfaces-devel
-%defattr(644,root,root,755)
-%{_includedir}/xkparts/xpart*.h
+##%files xparts-interfaces-devel
+##%defattr(644,root,root,755)
+##%{_includedir}/xkparts/xpart*.h
 
-%files xparts-kde
-%defattr(644,root,root,755)
-%{_libdir}/*kdexparts.la
-%attr(755,root,root) %{_libdir}/*kdexparts.so*
+##%files xparts-kde
+##%defattr(644,root,root,755)
+##%{_libdir}/*kdexparts.la
+##%attr(755,root,root) %{_libdir}/*kdexparts.so*
 
-%files xparts-notepad
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/xp_notepad
-%{_libdir}/*notepadpart.la
-%attr(755,root,root) %{_libdir}/*notepadpart.so*
-%{_datadir}/services/*notepad.desktop
+##%files xparts-notepad
+##%defattr(644,root,root,755)
+##%attr(755,root,root) %{_bindir}/xp_notepad
+##%{_libdir}/*notepadpart.la
+##%attr(755,root,root) %{_libdir}/*notepadpart.so*
+#%{_datadir}/services/*notepad.desktop
