@@ -73,7 +73,7 @@ u¿ywanego przez KDE.
 
 %package python
 Summary:	Python bindings to DCOP
-Summary(pl):	Dowi±zania DCOP dla Pythona 
+Summary(pl):	Dowi±zania DCOP dla Pythona
 Group:		X11/Development/Libraries
 Requires:	python >= 2.1
 
