@@ -1,30 +1,34 @@
+# --with-java	enable java, requires jdk (java-[sun,ibm,blackdown])
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc2
+%define		_kdever		kde-3.1-rc3
 
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.0.98
-Release:	0.1
+Version:	3.0.99
+Release:	0.3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
+Patch0:		%{name}-am.patch
+Patch1:		%{name}-dcopperl.patch
 URL:		http://www.kde.org/
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
 BuildRequires:	kdelibs-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:	pnet
 #BuildRequires:	fam-devel
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+-devel
+BuildRequires:	gtk+-devel >= 1.2.6
 # Well... what's that?? :)
+%{?_with_java:BuildRequires:	jdk}
 #BuildRequires:	some-working-Java-SDK
 BuildRequires:	gcc-objc
 %ifnarch ia64
-# Remove the "#" when the build system has finally run out of crack
 BuildRequires: mozilla-devel
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -104,6 +108,8 @@ u¿ywanego przez KDE.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -112,8 +118,9 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 %configure \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
-	--enable-objc \
-	--without-java
+	%{?_with_java:--with-java=/usr/lib/java} \
+	%{!?_with_java:--without-java} \
+	--enable-objc
 
 ## UGLY workaround for python bug...
 #cat >fPIC <<EOF
@@ -124,17 +131,19 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 #PATH="$PATH:`pwd`"; export PATH
 ## end workaround
 #
-#%{__make}
-#%{__make} -C dcoppython
-#cd dcopperl
-#perl Makefile.PL <<EOF
-#$QTDIR/include
-#$QTDIR/lib
-#%{_includedir}/kde
-#%{_libdir}
-#EOF
-#mkdir -p blib/bin
 %{__make}
+%{__make} -C dcopjava
+%{__make} -C dcoppython
+cd dcopperl
+perl Makefile.PL <<EOF
+$QTDIR/include/qt
+$QTDIR/lib
+%{_includedir}/kde
+%{_libdir}
+EOF
+mkdir -p blib/bin
+%{__make}
+cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -143,8 +152,10 @@ install -d $RPM_BUILD_ROOT/usr/lib/python2.1/site-packages
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
 
-#%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
-#%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
+%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
+%{__make} -C dcopjava install DESTDIR="$RPM_BUILD_ROOT"
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
