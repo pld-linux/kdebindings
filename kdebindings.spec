@@ -7,6 +7,7 @@ Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	70d084a1ad42456b33871bf0ef9e8887
 URL:		http://www.kde.org/
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	zlib-devel
