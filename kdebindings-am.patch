@@ -1,0 +1,50 @@
+--- kdebindings/configure.orig	Sun Nov 17 00:21:05 2002
++++ kdebindings/configure	Sun Nov 17 00:26:55 2002
+@@ -32789,7 +32789,7 @@
+ echo "$as_me:$LINENO: checking for Mozilla development headers" >&5
+ echo $ECHO_N "checking for Mozilla development headers... $ECHO_C" >&6
+ 
+-mozilla_incldirs="/usr/include /usr/include/mozilla /usr/local/include /opt/include"
++mozilla_incldirs="/usr/include /usr/include/mozilla /usr/X11R6/include/mozilla  /usr/local/include /opt/include"
+ 
+ mozilla_incdir=NO
+ for i in $mozilla_incldirs;
+@@ -32956,6 +32956,8 @@
+       ac_save_CFLAGS="$CFLAGS"
+       ac_save_LIBS="$LIBS"
+       CFLAGS="$CFLAGS $GTK_CFLAGS"
++      CXXFLAGS="$CXXFLAGS $GTK_CFLAGS"
++      ac_save_CXXFLAGS="$CXXFLAGS"
+       LIBS="$GTK_LIBS $LIBS"
+       rm -f conf.gtktest
+       if test "$cross_compiling" = yes; then
+@@ -33062,6 +33064,7 @@
+ rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+ fi
+        CFLAGS="$ac_save_CFLAGS"
++       CXXFLAGS="$ac_save_CXXFLAGS"
+        LIBS="$ac_save_LIBS"
+      fi
+   fi
+@@ -33083,6 +33086,8 @@
+        else
+           echo "*** Could not run GTK test program, checking why..."
+           CFLAGS="$CFLAGS $GTK_CFLAGS"
++          CXXFLAGS="$CXXFLAGS $GTK_CFLAGS"
++
+           LIBS="$LIBS $GTK_LIBS"
+           cat >conftest.$ac_ext <<_ACEOF
+ #line $LINENO "configure"
+@@ -33141,10 +33146,12 @@
+ fi
+ rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+           CFLAGS="$ac_save_CFLAGS"
++	  CXXFLAGS="$ac_save_CXXFLAGS"
+           LIBS="$ac_save_LIBS"
+        fi
+      fi
+      GTK_CFLAGS=""
++     GTK_CXXFLAGS=""
+      GTK_LIBS=""
+      :
+   fi
