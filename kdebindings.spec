@@ -10,13 +10,14 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	6
+Release:	7
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	63f7cd3ae52397c2182527899efb4c80
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-python24.patch
+Patch2:		%{name}-lib64.patch
 Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
@@ -397,6 +398,9 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %patch100 -p1
 %patch0 -p1 -b .niedakh
 %patch1 -p1
+%if "%{_lib}" == "lib64"
+%patch2 -p1
+%endif
 
 %build
 
