@@ -324,10 +324,10 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-c-dcop = %{version}-%{release}
 
 %description xparts-gtk
-XParts technology: gtk embedding.
+XParts technology: GTK+ embedding.
 
 %description xparts-gtk -l pl
-Technologia XParts: zagnie¿d¿anie gtk.
+Technologia XParts: zagnie¿d¿anie GTK+.
 
 %package xparts-gtk-devel
 Summary:	xparts-gtk header files
