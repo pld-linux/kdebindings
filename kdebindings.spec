@@ -17,6 +17,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	05dad7c3e6644c6993601b718834cbf6
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-dcopperl.patch
 Patch2:		%{name}-DESTDIR.patch
