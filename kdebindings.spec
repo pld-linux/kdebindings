@@ -1,7 +1,6 @@
 #
 # Conditional build:
 # _with_java	- enable java, requires jdk (java-[sun,ibm,blackdown])
-# _without_alsa - disable alsa
 #
 # The commented pkgs are not provided, because I have no reason to believe they
 # work, but the commented stuff works. KDE jsut does not provide the commented
@@ -28,7 +27,6 @@ Patch2:		%{name}-DESTDIR.patch
 # This is an ugly hack to make am work without regenerating
 Patch3:		%{name}-am_hack.patch
 URL:		http://www.kde.org/
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
 BuildRequires:	gettext-devel
@@ -428,8 +426,7 @@ export QTDIR=/usr/X11R6
 %configure  \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
 	--with%{!?_with_java:out}-java%{?_with_java:=/usr/lib/java} \
-	--%{?debug:en}%{!?debug:dis}able-debug \
-	--with%{?_without_alsa:out}-alsa
+	--%{?debug:en}%{!?debug:dis}able-debug
 
 #%%{__make}
 #{__make} -C dcopjava
