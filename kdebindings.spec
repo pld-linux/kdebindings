@@ -2,8 +2,8 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	%{_version}
-Release:	%{_release}
+Version:	3.0.3
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
