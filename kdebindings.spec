@@ -457,7 +457,7 @@ export QTDIR=/usr/X11R6
 # kalyptus compilation
 #cd kalyptus
 #%%{__autoconf}
-##%configure
+#%%configure
 #%%{__make}
 #cd ..
 
