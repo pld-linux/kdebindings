@@ -18,6 +18,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-ac.patch
 URL:		http://www.kde.org/
+BuildRequires:	autoconf
+BuildRequires:	automake
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
 BuildRequires:	gettext-devel
@@ -28,7 +30,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
 #BuildRequires:	pnet >= 0.4.8
-BuildRequires:	perl-modules >= 5.6.1
+BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	python-devel >= 2.1
 BuildRequires:	ruby-devel
 BuildRequires:	zlib-devel
@@ -98,8 +100,6 @@ c-dcop header files.
 %description c-dcop-devel -l pl
 Pliki nag³ówkowe dla c-dcop.
 
-
-
 # java bindings
 %package	java-dcop
 Summary:	Java bindings for DCOP
@@ -152,16 +152,16 @@ Dowi±zania jêzyka Java dla KDE.
 # javascript scripting for KDE applications
 
 %package kjsembed
-Summary:	A library for embedding the KJS Javascript interpreter
-Summary(pl):	Biblioteka pozwalaj±ca na zagnie¿d¿anie intepretera KJS
+Summary:	A library for embedding the KJS JavaScript interpreter
+Summary(pl):	Biblioteka pozwalaj±ca na zagnie¿d¿anie interpretera KJS
 Group:		X11/Development/Libraries
 Requires:	kdelibs >= 9:%{version}
 
 %description kjsembed
-A library for embedding the KJS Javascript interpreter in application.
+A library for embedding the KJS JavaScript interpreter in application.
 
 %description kjsembed -l pl
-Biblioteka pozwalaj±ca na zagnie¿d¿anie intepretera javascript - KJS,
+Biblioteka pozwalaj±ca na zagnie¿d¿anie interpretera JavaScript - KJS,
 w dowolnej aplikacji.
 
 %package  kjsembed-devel
@@ -232,7 +232,6 @@ applications to share information and communicate between each other.
 Dowi±zania jêzyka Python do Desktop COmmunications Protocol (DCOP)
 u¿ywanego przez aplikacje KDE to wymiany informacji i komunikowania
 siê miêdzy sob±.
-
 
 %package ruby-qt
 Summary:	A SMOKE library for qt
@@ -316,8 +315,7 @@ smoke-kde header files.
 %description smoke-kde-devel -l pl
 Pliki nag³ówkowe dla smoke-kde.
 
-
-# xparts, dont work (dcopc doesnt work)
+# xparts, don't work (dcopc doesn't work)
 
 %package xparts-gtk
 Summary:	XParts technology for gtk
@@ -410,12 +408,11 @@ cp %{_datadir}/automake/config.sub admin
 #export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
-
 %configure  \
 	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with-extra-includes=%{py_incdir} \
-	--with-pythondir=%{py_scriptdir}
+	--with-pythondir=%{py_sitedir}
 
 %{__make}
 
@@ -434,19 +431,29 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
-
 %{__make} -C kalyptus install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	destdir=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
+	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	kjsembed -p /sbin/ldconfig
+%postun	kjsembed -p /sbin/ldconfig
 
+%post	smoke-qt -p /sbin/ldconfig
+%postun	smoke-qt -p /sbin/ldconfig
+
+%post	smoke-kde -p /sbin/ldconfig
+%postun	smoke-kde -p /sbin/ldconfig
+
+%post	java-qt -p /sbin/ldconfig
+%postun	java-qt -p /sbin/ldconfig
 
 # Javascript scripting for KDE applications
 
@@ -466,6 +473,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/libqprocessplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libqprocessplugin.so
 %{_desktopdir}/kde/kjscmd.desktop
+%dir %{_datadir}/apps/kjsembed
 %{_datadir}/apps/kjsembed/cmdline.js
 %{_datadir}/services/customobject_plugin.desktop
 %{_datadir}/services/customqobject_plugin.desktop
@@ -476,17 +484,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kjsembed-devel
 %defattr(644,root,root,755)
-%{_includedir}/kjsembed
+%attr(755,root,root) %{_libdir}/*kjsembed.so
 %{_libdir}/*kjsembed.la
-%{_libdir}/*kjsembed.so
+%{_includedir}/kjsembed
 
 # python bindings for dcop, others wont be built
 
 %files python-dcop
 %defattr(644,root,root,755)
-%{_datadir}/python2.3/pydcop.py
-%{_datadir}/python2.3/site-packages/pcop.la
-%{_datadir}/python2.3/site-packages/pcop.so
+%{py_sitedir}/pydcop.py
+%attr(755,root,root) %{py_sitedir}/pcop.so
 
 # C bindings for qt and kde using the smoke technology
 
@@ -496,20 +503,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files smoke-qt-devel
 %defattr(644,root,root,755)
-%{_includedir}/smoke.h
+%attr(755,root,root) %{_libdir}/*smokeqt.so
 %{_libdir}/*smokeqt.la
-%{_libdir}/*smokeqt.so
+%{_includedir}/smoke.h
 
 %files smoke-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/*smokekde.so.1.2.2
 
-
 %files smoke-kde-devel
 %defattr(644,root,root,755)
-%{_includedir}/smoke.h
+%attr(755,root,root) %{_libdir}/*smokekde.so
 %{_libdir}/*smokekde.la
-%{_libdir}/*smokekde.so
+%{_includedir}/smoke.h
 
 # ruby bindings
 
@@ -521,7 +527,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rbuic
 %{_libdir}/ruby/site_ruby/1.8/Qt.rb
 %{_libdir}/ruby/site_ruby/1.8/Qt/qtruby.rb
-%{_libdir}/ruby/site_ruby/1.8/*/qtruby.la
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qtruby.so.0.0.0
 
 %files ruby-kde
@@ -529,7 +534,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/krubyinit
 %{_libdir}/ruby/site_ruby/1.8/KDE/korundum.rb
 %{_libdir}/ruby/site_ruby/1.8/Korundum.rb
-%{_libdir}/ruby/site_ruby/1.8/*/korundum.la
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/korundum.so.0.0.0
 
 # java bindings
@@ -548,33 +552,31 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/javalib
 # DONT package it, using %doc on those files instead
 #%{_prefix}/doc/javalib
-%{_libdir}/java/qtjava.jar
-%{_libdir}/*qtjava*.la
 %attr(755,root,root) %{_libdir}/*qtjava*.so.1.0.0
+%attr(755,root,root) %{_libdir}/*qtjava*.so
+%{_libdir}/*qtjava*.la
+%{_libdir}/java/qtjava.jar
 %doc qtjava/javalib/docs/en/*.html
 %doc qtjava/javalib/docs/en/*.sgml
-%{_libdir}/*qtjava*.so
 
 %files java-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/koala
-%{_libdir}/java/koala.jar
-%{_libdir}/*kdejava.la
 %attr(755,root,root) %{_libdir}/*kdejava.so.1.0.0
-%{_libdir}/*kdejava.so
+%attr(755,root,root) %{_libdir}/*kdejava.so
+%{_libdir}/*kdejava.la
+%{_libdir}/java/koala.jar
 %endif
 
 # perl bindings
 %files perl-dcop
 %defattr(644,root,root,755)
-%{perl_sitearch}/DCOP.pm
-%{perl_sitearch}/DCOP/Object.pm
-# contains RPMBUILDROOT, dont want to install it.
-# and no other perl module i have provides such a file
-#%{perl_sitearch}/auto/DCOP/.packlist
-%{perl_sitearch}/auto/DCOP/DCOP.bs
-%{perl_sitearch}/auto/DCOP/DCOP.so
-%{perl_sitearch}/perllocal.pod
+%{perl_vendorarch}/DCOP.pm
+%dir %{perl_vendorarch}/DCOP
+%{perl_vendorarch}/DCOP/Object.pm
+%dir %{perl_vendorarch}/auto/DCOP
+%{perl_vendorarch}/auto/DCOP/DCOP.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/DCOP/DCOP.so
 %{_mandir}/man3/DCOP.3pm*
 
 # C bindings
@@ -588,14 +590,12 @@ rm -rf $RPM_BUILD_ROOT
 #{_includedir}/dcopc
 #{_libdir}/libdcopc.la
 #attr(755,root,root) %{_libdir}/libdcopc.so
-#attr(755,root,root) %{_libdir}/libdcopc.so.1
 
 # kalyptus
 %files kalyptus
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kalyptus
 %{_datadir}/kalyptus
-
 
 # mozilla embedding
 #%ifnarch ia64
@@ -606,7 +606,6 @@ rm -rf $RPM_BUILD_ROOT
 #%attr(755,root,root) %{_libdir}/libkmozillapart.so*
 #%{_datadir}/services/kmozilla.desktop
 #%endif
-
 
 # xparts
 
@@ -619,7 +618,6 @@ rm -rf $RPM_BUILD_ROOT
 ##%defattr(644,root,root,755)
 ##%{_includedir}/xkparts/gtk*.h
 ##%attr(755,root,root) %{_libdir}/*gtkxparts.so
-##%attr(755,root,root) %{_libdir}/*gtkxparts.so.?
 
 ##%files xparts-interfaces
 ##%defattr(644,root,root,755)
