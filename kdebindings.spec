@@ -1,9 +1,13 @@
-# --with-java	enable java, requires jdk (java-[sun,ibm,blackdown])
+#
+# Conditional build:
+# _with_java	- enable java, requires jdk (java-[sun,ibm,blackdown])
 # _without_alsa - disable alsa
-# The commented pkgs are not provided, because I have no reason to believe they work, but the
-# commented stuff works. KDE jsut does not provide the commented packages at the moment, but they will be
-# available in 3.2, since Richard Dale returned to KDE (he is the maintainer of kdebindings and was away
-# for some time).
+#
+# The commented pkgs are not provided, because I have no reason to believe they
+# work, but the commented stuff works. KDE jsut does not provide the commented
+# packages at the moment, but they will be available in 3.2, since Richard Dale
+# returned to KDE (he is the maintainer of kdebindings and was away for some
+# time).
 
 %define		_state		stable
 %define		_ver		3.1.4
@@ -24,27 +28,23 @@ Patch2:		%{name}-DESTDIR.patch
 # This is an ugly hack to make am work without regenerating
 Patch3:		%{name}-am_hack.patch
 URL:		http://www.kde.org/
-#BuildRequires:	python-devel >= 2.1
-BuildRequires:	zlib-devel
+%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
+#BuildRequires:	fam-devel
+#BuildRequires:	gcc-objc
+BuildRequires:	gettext-devel
+BuildRequires:	gtk+-devel >= 1.2.6
+%{?_with_java:BuildRequires:	jdk}
 BuildRequires:	kdelibs-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:	mono-devel >= 0.16
 BuildRequires:	pnet >= 0.4.8
 #BuildRequires:	perl-modules >= 5.6.1
-BuildRequires:	mono-devel >= 0.16
-#BuildRequires:	fam-devel
-BuildRequires:	gettext-devel
-BuildRequires:	gtk+-devel >= 1.2.6
-# Well... what's that?? :)
-%{?_with_java:BuildRequires:	jdk}
-#BuildRequires:	some-working-Java-SDK
-#BuildRequires:	gcc-objc
+#BuildRequires:	python-devel >= 2.1
 %ifnarch ia64
 BuildRequires:	mozilla-devel
 %endif
-%ifnarch sparc sparcv9 sparc64
-%{!?_without_alsa:BuildRequires:	alsa-lib-devel}
-%endif
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -163,7 +163,6 @@ C bindings for KDE.
 %description kde-c -l pl
 Dowi±zania jêzyka C dla KDE.
 
-%if %{?_with_java:1}%{!?_with_java:0}
 %package kde-java
 Summary:	Java bindings for KDE
 Summary(pl):	Dowi±zania jêzyka Java dla KDE
@@ -191,7 +190,6 @@ kde-java header files.
 
 %description kde-java-devel -l pl
 Pliki nag³ówkowe dla kde-java.
-%endif
 
 %package kjsembed
 Summary:	A library for embedding the KJS Javascript interpreter
@@ -219,7 +217,6 @@ kjsembed header files.
 %description kjsembed-devel -l pl
 Pliki nag³ówkowe dla kjsembed.
 
-%ifnarch ia64
 %package kmozilla
 Summary:	Mozilla kpart
 Summary(pl):	KPart mozilli
@@ -234,7 +231,6 @@ This KPart allows using mozilla as a browser engine.
 %description kmozilla -l pl
 Kpart umo¿liwiaj±cy u¿ywanie mozilli jako silnika przegl±darki
 zamiast khtml.
-%endif
 
 #%package kde-objc
 #Summary:	ObjC bindings for KDE
@@ -277,7 +273,6 @@ C# bindings for qt.
 %description qt-csharp -l pl
 Dowi±zania jêzyka C# dla qt.
 
-%if %{?_with_java:1}%{!?_with_java:0}
 %package qt-java
 Summary:	Java bindings for qt
 Summary(pl):	Dowi±zania jêzyka Java dla qt
@@ -303,7 +298,6 @@ qt-java header files.
 
 %description qt-java-devel -l pl
 Pliki nag³ówkowe dla qt-java.
-%endif
 
 #%package qt-objc
 #Summary:	ObjC bindings for qt
@@ -465,7 +459,9 @@ export QTDIR=/usr/X11R6
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT" destdir="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	destdir=$RPM_BUILD_ROOT
 
 # dcop perl bindings installation
 #%%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
