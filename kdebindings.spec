@@ -480,6 +480,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/kjsembed
 %{_libdir}/*kjsembed.la
+%{_libdir}/*kjsembed.so
 
 # python bindings for dcop, others wont be built
 
@@ -499,15 +500,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/smoke.h
 %{_libdir}/*smokeqt.la
+%{_libdir}/*smokeqt.so
 
 %files smoke-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/*smokekde.so.1.2.2
 
+
 %files smoke-kde-devel
 %defattr(644,root,root,755)
 %{_includedir}/smoke.h
 %{_libdir}/*smokekde.la
+%{_libdir}/*smokekde.so
 
 # ruby bindings
 
@@ -551,7 +555,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/*qtjava*.so.1.0.0
 %doc qtjava/javalib/docs/en/*.html
 %doc qtjava/javalib/docs/en/*.sgml
-
+%{_libdir}/*qtjava*.so
 
 %files java-kde
 %defattr(644,root,root,755)
@@ -559,6 +563,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/java/koala.jar
 %{_libdir}/*kdejava.la
 %attr(755,root,root) %{_libdir}/*kdejava.so.1.0.0
+%{_libdir}/*kdejava.so
 %endif
 
 # perl bindings
