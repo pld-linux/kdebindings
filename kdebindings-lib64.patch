@@ -1,5 +1,5 @@
---- kdebindings-3.3.0/acinclude.m4.orig	2005-01-10 21:05:29.481014344 +0100
-+++ kdebindings-3.3.0/acinclude.m4	2005-01-10 21:05:54.624617656 +0100
+--- kdebindings-3.3.0/admin/acinclude.m4.in.orig	2005-01-10 22:08:22.121071912 +0100
++++ kdebindings-3.3.0/admin/acinclude.m4.in	2005-01-10 22:08:34.582177536 +0100
 @@ -4151,7 +4151,7 @@
  
  PYTHONINC=-I$python_incdir
