@@ -50,21 +50,21 @@ Bindings para o K Desktop Environment: Provê interfaces para
 diferentes linguagens de programação para uso da interface nativa do
 KDE.
 
-%package kalyptus 
-Summary: QT/KDE bindings generator 
-Summary(pl):Generator dowi±zañ do QT/KDE 
-Group: X11/Development/Libraries
-Requires: perl >= 5.6.1 
-Requires: kdelibs >= 9:%{version} 
-Requires:qt >= 3.1
+%package kalyptus
+Summary:	QT/KDE bindings generator
+Summary(pl):	Generator dowi±zañ do QT/KDE
+Group:		X11/Development/Libraries
+Requires:	perl >= 5.6.1
+Requires:	kdelibs >= 9:%{version}
+Requires:	qt >= 6:3.3.3
 
-%description kalyptus 
-Kalyptus creates language bindings for Qt and KDE C++ libraries 
-directly from the headers. 
+%description kalyptus
+Kalyptus creates language bindings for Qt and KDE C++ libraries
+directly from the headers.
 
-%description kalyptus -l pl 
-Kalyptus s³u¿y do generowania dowi±zañ do QT/KDE bezpo¶rednio
-z plików nag³ówkowych.
+%description kalyptus -l pl
+Kalyptus s³u¿y do generowania dowi±zañ do QT/KDE bezpo¶rednio z plików
+nag³ówkowych.
 
 # c bindings
 %package c-dcop
@@ -81,9 +81,9 @@ C bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
 %description c-dcop -l pl
-Dowi±zania jêzyka C do Desktop COmmunications Protocol (DCOP) u¿ywanego
-przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
-sob±.
+Dowi±zania jêzyka C do Desktop COmmunications Protocol (DCOP)
+u¿ywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siê miêdzy sob±.
 
 %package c-dcop-devel
 Summary:	C bindings for DCOP [development files]
@@ -109,7 +109,7 @@ Summary(pl):	Dowi±zania jêzyka Java dla DCOP
 Group:		X11/Development/Libraries
 Requires:	jdk
 Requires:	kdelibs >= 9:%{version}
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 Requires:	libart_lgpl
 Obsoletes:	kdebindings-dcop-java
 
@@ -118,16 +118,16 @@ Java bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
 %description java-dcop -l pl
-Dowi±zania jêzyka Java do Desktop COmmunications Protocol (DCOP) u¿ywanego
-przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
-sob±.
+Dowi±zania jêzyka Java do Desktop COmmunications Protocol (DCOP)
+u¿ywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siê miêdzy sob±.
 
 %package java-qt
 Summary:	Java bindings for qt
 Summary(pl):	Dowi±zania jêzyka Java dla qt
 Group:		X11/Development/Libraries
 Requires:	jdk
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-qt-java
 
 %description java-qt
@@ -179,7 +179,7 @@ kjsembed header files.
 %description kjsembed-devel -l pl
 Pliki nag³ówkowe dla kjsembed.
 
-# mozilla  kpart - not working
+# mozilla kpart - not working
 
 %package kmozilla
 Summary:	Mozilla kpart
@@ -204,7 +204,7 @@ Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
 Group:		X11/Development/Libraries
 Requires:	perl-modules >= 5.6.1
 Requires:	kdelibs >= 9:%{version}
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-perl
 
 %description perl-dcop
@@ -212,9 +212,9 @@ Perl bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
 %description perl-dcop -l pl
-Dowi±zania jêzyka Perl do Desktop COmmunications Protocol (DCOP) u¿ywanego
-przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
-sob±.
+Dowi±zania jêzyka Perl do Desktop COmmunications Protocol (DCOP)
+u¿ywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siê miêdzy sob±.
 
 # python bindings, only dcop as qt and kde ones are in py{Qt,KDE}.spec
 %package python-dcop
@@ -223,24 +223,24 @@ Summary(pl):	Dowi±zania jêzyka Python dla DCOP
 Group:		X11/Development/Libraries
 Requires:	python-devel >= 2.1
 Requires:	kdelibs >= 9:%{version}
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-python
 
 %description python-dcop
 Python bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
-%description python-dcop -l pl 
-Dowi±zania jêzyka Python do Desktop COmmunications Protocol (DCOP) u¿ywanego
-przez aplikacje KDE to wymiany informacji i komunikowania siê miêdzy
-sob±.
+%description python-dcop -l pl
+Dowi±zania jêzyka Python do Desktop COmmunications Protocol (DCOP)
+u¿ywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siê miêdzy sob±.
 
 
 %package ruby-qt
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 Requires:	ruby
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 
@@ -254,7 +254,7 @@ Dowi±zania Qt dla Ruby przy u¿yciu technologii SMOKE.
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-ruby-qt = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
@@ -269,7 +269,7 @@ Dowi±zania KDE dla Ruby przy u¿yciu technologii SMOKE.
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	qt >= 3.1
+Requires:	qt >= 6:3.3.3
 
 %description smoke-qt
 SMOKE library (Scripting Meta Object Kompiler Engine) dla qt.
@@ -282,7 +282,7 @@ Summary:	smoke-qt header files
 Summary(pl):	Pliki nag³ówkowe dla smoke-qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-qt = %{version}-%{release}
-Requires:	qt-devel >= 3.1
+Requires:	qt-devel >= 6:3.3.3
 
 %description smoke-qt-devel
 smoke-qt header files.
@@ -301,7 +301,8 @@ Requires:	kdelibs >= 9:%{version}
 SMOKE library (Scripting Meta Object Kompiler Engine) dla KDE.
 
 %description smoke-kde -l pl
-Biblioteka SMOKE (Silnik kompilatora metaobiektów skryptowych) dla KDE.
+Biblioteka SMOKE (Silnik kompilatora metaobiektów skryptowych) dla
+KDE.
 
 %package smoke-kde-devel
 Summary:	smoke-qt header files
@@ -586,14 +587,14 @@ rm -rf $RPM_BUILD_ROOT
 #attr(755,root,root) %{_libdir}/libdcopc.so
 #attr(755,root,root) %{_libdir}/libdcopc.so.1
 
-# kalyptus 
+# kalyptus
 %files kalyptus
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kalyptus
 %{_datadir}/kalyptus
 
 
-# mozilla embedding 
+# mozilla embedding
 #%ifnarch ia64
 #%files kmozilla
 #%defattr(644,root,root,755)
