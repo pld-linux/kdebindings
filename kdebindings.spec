@@ -51,8 +51,8 @@ diferentes linguagens de programação para uso da interface nativa do
 KDE.
 
 %package kalyptus
-Summary:	QT/KDE bindings generator
-Summary(pl):	Generator dowi±zañ do QT/KDE
+Summary:	Qt/KDE bindings generator
+Summary(pl):	Generator dowi±zañ do Qt/KDE
 Group:		X11/Development/Libraries
 Requires:	perl >= 5.6.1
 Requires:	kdelibs >= 9:%{version}
@@ -63,7 +63,7 @@ Kalyptus creates language bindings for Qt and KDE C++ libraries
 directly from the headers.
 
 %description kalyptus -l pl
-Kalyptus s³u¿y do generowania dowi±zañ do QT/KDE bezpo¶rednio z plików
+Kalyptus s³u¿y do generowania dowi±zañ do Qt/KDE bezpo¶rednio z plików
 nag³ówkowych.
 
 # c bindings
