@@ -2,8 +2,8 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.0.3
-Release:	1
+Version:	3.0.5a
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -169,7 +169,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kmozilla
 %{_libdir}/*mozilla*
-/usr/share/services/kmozilla.desktop
+#/usr/share/services/kmozilla.desktop
 # ??? %{_applnkdir}/???/kmozilla.desktop
 %endif
 
