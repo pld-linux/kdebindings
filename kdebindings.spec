@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _with_java	- enable java, requires jdk (java-[sun,ibm,blackdown])
+%bcond_with	java	# enable java, requires jdk (java-[sun,ibm,blackdown])
 #
 # The commented pkgs are not provided, because I have no reason to believe they
 # work, but the commented stuff works. KDE jsut does not provide the commented
@@ -31,8 +31,8 @@ URL:		http://www.kde.org/
 #BuildRequires:	gcc-objc
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2.6
-%{?_with_java:BuildRequires:	jdk}
-BuildRequires:	kdelibs-devel >= 3.1
+%{?with_java:BuildRequires:	jdk}
+BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	mono-devel >= 0.16
@@ -46,24 +46,25 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Bindings fot the K Desktop Environment:
-Provides interfaces to many diferent programming languages to use KDE native resources and
+Bindings for the K Desktop Environment: provide interfaces to many
+diferent programming languages to use KDE native resources and
 widgets.
 
 %description -l pl
-Dowi±zania KDE/qt dla jêzyków innych ni¿ C++.
+Dowi±zania KDE/qt dla jêzyków innych ni¿ C++ pozwalaj±ce u¿ywaæ
+natywnych dla KDE zasobów i widgetów.
 
 %description -l pt_BR
 Bindings para o K Desktop Environment:
 Provê interfaces para diferentes linguagens de programação
-para uso da interface nativa do KDE
+para uso da interface nativa do KDE.
 
 %package dcop-c
 Summary:	C bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka C dla DCOP
 Group:		X11/Development/Libraries
 Requires:	libgcc
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 Requires:	gtk+ >= 1.2.6
 
 %description dcop-c
@@ -76,9 +77,9 @@ Dowi±zania jêzyka C dla DCOP.
 Summary:	dcop-c header files
 Summary(pl):	Pliki nag³ówkowe dla dcop-c
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= %{version}
+Requires:	kdelibs-devel >= 9:%{version}
 Requires:	gtk+-devel >= 1.2.6
-Requires:	%{name}-dcop-c = %{version}
+Requires:	%{name}-dcop-c = %{version}-%{release}
 
 %description dcop-c-devel
 dcop-c header files.
@@ -86,13 +87,12 @@ dcop-c header files.
 %description dcop-c-devel -l pl
 Pliki nag³ówkowe dla dcop-c.
 
-#%if %{?_with_java:1}%{!?_with_java:0}
 #%package dcop-java
 #Summary:	Java bindings for DCOP
 #Summary(pl):	Dowi±zania jêzyka Java dla DCOP
 #Group:		X11/Development/Libraries
 #Requires:	jdk
-#Requires:	kdelibs >= %{version}
+#Requires:	kdelibs >= 9:%{version}
 #Requires:	qt >= 3.1
 #Requires:	libart_lgpl
 
@@ -101,14 +101,13 @@ Pliki nag³ówkowe dla dcop-c.
 
 #%description dcop-java -l pl
 #Dowi±zania jêzyka Java dla DCOP.
-#%endif
 
 #%package dcop-perl
 #Summary:	Perl bindings for DCOP
 #Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
 #Group:		X11/Development/Libraries
 #Requires:	perl-modules >= 5.6.1
-#Requires:	kdelibs >= %{version}
+#Requires:	kdelibs >= 9:%{version}
 #Requires:	qt >= 3.1
 
 #%description dcop-perl
@@ -122,7 +121,7 @@ Pliki nag³ówkowe dla dcop-c.
 #Summary(pl):	Dowi±zania jêzyka Python dla DCOP
 #Group:		X11/Development/Libraries
 #Requires:	python-devel >= 2.1
-#Requires:	kdelibs >= %{version}
+#Requires:	kdelibs >= 9:%{version}
 #Requires:	qt >= 3.1
 
 #%description dcop-python
@@ -136,7 +135,7 @@ Pliki nag³ówkowe dla dcop-c.
 #Summary(pl):	Generator dowi±zañ do QT/KDE
 #Group:		X11/Development/Libraries
 #Requires:	perl >= 5.6.1
-#Requires:	kdelibs >= %{version}
+#Requires:	kdelibs >= 9:%{version}
 #Requires:	qt >= 3.1
 
 #%description kalyptus
@@ -152,8 +151,8 @@ Summary:	C bindings for KDE
 Summary(pl):	Dowi±zania jêzyka C dla KDE
 Group:		X11/Development/Libraries
 Requires:	libgcc
-Requires:	%{name}-qt-c = %{version}
-Requires:	kdelibs >= %{version}
+Requires:	%{name}-qt-c = %{version}-%{release}
+Requires:	kdelibs >= 9:%{version}
 
 %description kde-c
 C bindings for KDE.
@@ -166,8 +165,8 @@ Summary:	Java bindings for KDE
 Summary(pl):	Dowi±zania jêzyka Java dla KDE
 Group:		X11/Development/Libraries
 Requires:	jdk
-Requires:	%{name}-qt-java = %{version}
-Requires:	kdelibs >= %{version}
+Requires:	%{name}-qt-java = %{version}-%{release}
+Requires:	kdelibs >= 9:%{version}
 
 %description kde-java
 Java bindings for KDE.
@@ -179,9 +178,9 @@ Dowi±zania jêzyka Java dla KDE.
 Summary:	kde-java header files
 Summary(pl):	Pliki nag³ówkowe dla kde-java
 Group:		X11/Development/Libraries
-Requires:	%{name}-kde-java = %{version}
-Requires:	%{name}-qt-java-devel = %{version}
-Requires:	kdelibs-devel >= %{version}
+Requires:	%{name}-kde-java = %{version}-%{release}
+Requires:	%{name}-qt-java-devel = %{version}-%{release}
+Requires:	kdelibs-devel >= 9:%{version}
 
 %description kde-java-devel
 kde-java header files.
@@ -193,7 +192,7 @@ Pliki nag³ówkowe dla kde-java.
 Summary:	A library for embedding the KJS Javascript interpreter
 Summary(pl):	Biblioteka pozwalaj±ca na zagnie¿d¿anie intepretera KJS
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= %{version}
+Requires:	kdelibs >= 9:%{version}
 
 %description kjsembed
 A library for embedding the KJS Javascript interpreter in application.
@@ -206,8 +205,8 @@ w dowolnej aplikacji.
 Summary:	kjsembed header files
 Summary(pl):	Pliki nag³ówkowe dla kjsembed
 Group:		X11/Development/Libraries
-Requires:	%{name}-kjsembed = %{version}
-Requires:	kdelibs-devel >= %{version}
+Requires:	%{name}-kjsembed = %{version}-%{release}
+Requires:	kdelibs-devel >= 9:%{version}
 
 %description kjsembed-devel
 kjsembed header files.
@@ -220,8 +219,8 @@ Summary:	Mozilla kpart
 Summary(pl):	KPart mozilli
 Group:		X11/Applications
 Requires:	mozilla
-Requires:	kdelibs >= %{version}
-Requires:	%{name}-xparts-kde
+Requires:	kdelibs >= 9:%{version}
+Requires:	%{name}-xparts-kde = %{version}-%{release}
 
 %description kmozilla
 This KPart allows using mozilla as a browser engine.
@@ -327,7 +326,7 @@ Biblioteka SMOKE (Silnik kompilatora metaobiektów skryptowych) dla qt.
 Summary:	smoke-qt header files
 Summary(pl):	Pliki nag³ówkowe dla smoke-qt
 Group:		X11/Development/Libraries
-Requires:	%{name}-smoke-qt = %{version}
+Requires:	%{name}-smoke-qt = %{version}-%{release}
 Requires:	qt-devel >= 3.1
 Requires:	perl-modules >= 5.6.1
 
@@ -341,7 +340,7 @@ Pliki nag³ówkowe dla smoke-qt.
 Summary:	XParts technology for gtk
 Summary(pl):	Technologia XParts dla gtk
 Group:		X11/Development/Libraries
-Requires:	%{name}-dcop-c >= %{version}
+Requires:	%{name}-dcop-c = %{version}-%{release}
 
 %description xparts-gtk
 XParts technology: gtk embedding.
@@ -353,7 +352,7 @@ Technologia XParts: zagnie¿d¿anie gtk.
 Summary:	xparts-gtk header files
 Summary(pl):	Pliki nag³ówkowe dla xparts-gtk
 Group:		X11/Development/Libraries
-Requires:	%{name}-dcop-c-devel >= %{version}
+Requires:	%{name}-dcop-c-devel = %{version}-%{release}
 
 %description xparts-gtk-devel
 xparts-gtk header files.
@@ -365,7 +364,7 @@ Pliki nag³ówkowe dla xparts-gtk.
 Summary:	Common libraries for XParts technology
 Summary(pl):	Wspó³dzielone biblioteki dla technologii XParts
 Group:		X11/Development/Libraries
-Requires:	 %{name}-xparts-kde >= %{version}
+Requires:	%{name}-xparts-kde = %{version}-%{release}
 
 %description xparts-interfaces
 Common libraries for XParts technology.
@@ -377,8 +376,8 @@ Wspó³dzielone biblioteki dla technologii XParts.
 Summary:	xparts-interfaces header files
 Summary(pl):	Pliki nag³ówkowe dla xparts-interfaces
 Group:		X11/Development/Libraries
-Requires:	%{name}-xparts-interfaces = %{version}
-Requires:	kdelibs-devel >= %{version}
+Requires:	%{name}-xparts-interfaces = %{version}-%{release}
+Requires:	kdelibs-devel >= 9:%{version}
 
 %description xparts-interfaces-devel
 xparts-interfaces header files.
@@ -390,19 +389,19 @@ Pliki nag³ówkowe dla xparts-interfaces.
 Summary:	XParts technology for KDE
 Summary(pl):	Technologia XParts dla KDE
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= 3.1
+Requires:	kdelibs >= 9:%{version}
 
 %description xparts-kde
 XParts technology: KDE embedding.
 
 %description xparts-kde -l pl
-Technologia XParts: zagnie¿d¿anie KDE.
+Technologia XParts: osadzanie KDE.
 
 %package xparts-notepad
 Summary:	An example use of XParts technology: notepad
 Summary(pl):	Przyk³adowe wykorzystanie technologii XParts: notatnik
 Group:		X11/Development/Libraries
-Requires:	%{name}-xparts-kde >= %{version}
+Requires:	%{name}-xparts-kde = %{version}-%{release}
 
 %description xparts-notepad
 An example use of XParts technology: notepad.
@@ -425,7 +424,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 export QTDIR=/usr
 %configure  \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
-	--with%{!?_with_java:out}-java%{?_with_java:=/usr/lib/java} \
+	--with%{!?with_java:out}-java%{?with_java:=/usr/lib/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug
 
 #%%{__make}
@@ -492,7 +491,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libdcopc.so
 %attr(755,root,root) %{_libdir}/libdcopc.so.1
 
-#%if %{?_with_java:1}%{!?_with_java:0}
+#%if %{with java}
 #%files dcop-java
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/dcopidl2java
@@ -519,7 +518,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*kdec.la
 %attr(755,root,root) %{_libdir}/*kdec.so*
 
-%if %{?_with_java:1}%{!?_with_java:0}
+%if %{with java}
 %files kde-java
 %defattr(644,root,root,755)
 %dir %{_libdir}/java/org/kde
@@ -571,7 +570,7 @@ rm -rf $RPM_BUILD_ROOT
 # ???
 #%%{_datadir}/doc/
 
-%if %{?_with_java:1}%{!?_with_java:0}
+%if %{with java}
 %files qt-java
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/javalib
