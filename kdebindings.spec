@@ -3,7 +3,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	3.0.3
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -105,8 +105,6 @@ u¿ywanego przez KDE.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 #%{__make} -f Makefile.cvs
-
-#QTDIR=%{_prefix}
 
 %configure \
 	--with-pythondir=/usr/lib/python2.1/site-packages \
