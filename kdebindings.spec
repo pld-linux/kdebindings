@@ -1,42 +1,48 @@
-%define is_release 1
-%define beta %{nil}
-%define rel 3
-%define DATE 20010805
-Version: 2.2
-Name: kdebindings
-%if %{is_release}
-%if "%{beta}" != ""
-Release: 1.%{beta}.%{rel}
-Source: %{name}-%{version}-%{beta}.tar.bz2
-%else
-Release: %{rel}
-Source: %{name}-%{version}.tar.bz2
-%endif
-%else
-Release: 1.cvs%{DATE}.%{rel}
-Source: %{name}-%{DATE}.tar.bz2
-%endif
-Summary: KDE bindings to non-C++ languages.
-URL: http://www.kde.org/
-License: GPL
-Group: User Interface/Desktops
-Prefix: %{_prefix}
-BuildRoot: %{_tmppath}/%{name}-root
-BuildRequires: python2 >= 2.1 zlib-devel kdelibs-devel kdelibs-sound-devel python2-devel >= 2.1 libjpeg-devel libpng-devel fam-devel
-Requires: kdelibs >= 2.2 kdebase >= 2.2
+Summary:	KDE bindings to non-C++ languages
+Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
+Name:		kdebindings
+Version:	2.2
+Release:	4
+License:	GPL
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
+Source0:	ftp://ftp.kde.org/pub/kde/src/%{name}-%{version}.tar.bz2
+URL:		http://www.kde.org/
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRequires:	python-devel >= 2.1
+BuildRequires:	zlib-devel
+BuildRequires:	kdelibs-devel
+BuildRequires:	kdelibs-sound-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
+BuildRequires:	fam-devel
 %ifnarch ia64
 # Remove the "#" when the build system has finally run out of crack
 # BuildRequires: mozilla-devel
 %endif
 
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
+
 %description
 KDE/DCOP bindings to non-C++ languages.
 
+%description -l pl
+Dowi±zania KDE/DCOP dla jêzyków innych ni¿ C++.
 
 %package devel
-Summary: Development files for kdebindings.
-Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
+Summary:	Development files for kdebindings
+Summary(pl):	Pliki dla programistów u¿ywaj±cych kdebindings
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
+Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
+Requires:	%{name} = %{version}
 
 %description devel
 Development files for the KDE bindings.
@@ -44,130 +50,139 @@ Development files for the KDE bindings.
 Install kdebindings-devel if you want to develop non-KDE applications
 that talk to KDE.
 
+%description devel -l pl
+Pliki dla programistów u¿ywaj±cych KDE bindings, do rozwoju aplikacji
+nie-KDE komunikuj±cych siê z KDE.
+
 %package kmozilla
-Summary: KDE bindings to Mozilla.
-Group: User Interface/Desktops
-Requires: mozilla kdebase >= 2.2
+Summary:	KDE bindings to Mozilla
+Summary(pl):	Dowi±zania KDE dla Mozilli
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
+Requires:	mozilla
 
 %description kmozilla
 KDE bindings to Mozilla.
 
+%description kmozilla -l pl
+Dowi±zania KDE dla Mozilli.
 
 %package perl
-Summary: Perl bindings to DCOP.
-Group: Development/Libraries
-Requires: kdelibs >= %{version}, perl >= 5.6.0
+Summary:	Perl bindings to DCOP
+Summary(pl):	Dowi±zania DCOP dla Perla
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
+Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
+Requires:	perl >= 5.6.0
 
 %description perl
 Perl bindings to the DCOP interprocess communication protocol used by
 KDE.
 
+%description perl -l pl
+Dowi±zania dla Perla do protoko³u komunikacji miêdzyprocesowej DCOP,
+u¿ywanego przez KDE.
+
 %package python
-Summary: Python bindings to DCOP.
-Group: Development/Libraries
-Requires: kdelibs >= %{version}, python2 >= 2.1
+Summary:	Python bindings to DCOP
+Summary(pl):	Dowi±zania DCOP dla Pythona 
+Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(es):	X11/Desarrollo/Bibliotecas
+Group(fr):	X11/Development/Librairies
+Group(pl):	X11/Programowanie/Biblioteki
+Group(pt_BR):	X11/Desenvolvimento/Bibliotecas
+Group(ru):	X11/òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	X11/òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
+Requires:	python >= 2.1
 
 %description python
-Python bindings to the DCOP interprocess communication protocol used by KDE.
+Python bindings to the DCOP interprocess communication protocol used
+by KDE.
 
+%description python -l pl
+Dowi±zania dla Pythona do protoko³u komunikacji miêdzyprocesowej DCOP,
+u¿ywanego przez KDE.
 
 %prep
-%if %{is_release}
 %setup -q
-%else
-%setup -q -n %{name}
-%endif
-make -f Makefile.cvs
-unset QTDIR || :
-. /etc/profile.d/qt.sh
-./configure --prefix=%{prefix} --mandir=%{_mandir} --without-java --with-pythondir=/usr/lib/python2.1/site-packages
 
 %build
-unset QTDIR || :
-. /etc/profile.d/qt.sh
+%{__make} -f Makefile.cvs
+QTDIR=%{_prefix}
+%configure \
+	--without-java \
+	--with-pythondir=/usr/lib/python2.1/site-packages
+
 # UGLY workaround for python bug...
 cat >fPIC <<EOF
 #!/bin/sh
-exec gcc -fPIC \$@
+exec %{__cc} -fPIC \$@
 EOF
 chmod +x fPIC
-export PATH="$PATH:`pwd`"
+PATH="$PATH:`pwd`"; export PATH
 # end workaround
 
-make %{?smp_mflags}
-make %{?smp_mflags} -C dcoppython
+%{__make}
+%{__make} -C dcoppython
 cd dcopperl
 perl Makefile.PL <<EOF
 $QTDIR/include
 $QTDIR/lib
-%{_prefix}/include/kde
+%{_includedir}/kde
 %{_libdir}
 EOF
 mkdir -p blib/bin
-make %{?smp_mflags}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/lib/python1.5/site-packages
-make install DESTDIR="$RPM_BUILD_ROOT"
-make -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
-make -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
+install -d $RPM_BUILD_ROOT/usr/lib/python2.1/site-packages
+%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} -C dcoppython install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} -C dcopperl install PREFIX="$RPM_BUILD_ROOT%{_prefix}"
 
-%post -p /sbin/ldconfig
+%clean
+rm -rf $RPM_BUILD_ROOT
 
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
-%defattr(-,root,root)
-/usr/lib/libdcopc.so.*
-/usr/lib/lib*xparts.so.*
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libdcopc.so.*
+%attr(755,root,root) %{_libdir}/lib*xparts.so.*
 
 %files python
-%defattr(-,root,root)
+%defattr(644,root,root,755)
 /usr/lib/python2.1/*/*
 
 %files devel
-%defattr(-,root,root)
-/usr/lib/libdcopc.??
-/usr/lib/lib*xparts.??
-%dir /usr/include/xkparts
-%dir /usr/include/dcopc
-/usr/include/xkparts/*
-/usr/include/dcopc/*
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libdcopc.??
+%attr(755,root,root) %{_libdir}/lib*xparts.??
+%{_includedir}/xkparts
+%{_includedir}/dcopc
 
 %ifnarch ia64
 %files kmozilla
-%defattr(-,root,root)
-/usr/bin/kmozilla
-/usr/lib/*mozilla*
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kmozilla
+%{_libdir}/*mozilla*
 /usr/share/services/kmozilla.desktop
+# ??? %{_applnkdir}/???/kmozilla.desktop
 %endif
 
 %files perl
-%defattr(-,root,root)
-%{prefix}/lib/perl5/site_perl/*/*/auto/DCOP/*
-%{prefix}/lib/perl5/site_perl/*/*/auto/DCOP/.packlist
-%{prefix}/lib/perl5/site_perl/*/*/DCOP.pm
-%{prefix}/lib/perl5/site_perl/*/*/DCOP/Object.pm
+%defattr(644,root,root,755)
+/usr/lib/perl5/site_perl/*/*/auto/DCOP/*
+/usr/lib/perl5/site_perl/*/*/auto/DCOP/.packlist
+/usr/lib/perl5/site_perl/*/*/DCOP.pm
+/usr/lib/perl5/site_perl/*/*/DCOP/Object.pm
 %{_mandir}/man3/DCOP.3pm*
-
-%clean
-rm -rf $RPM_BUILD_ROOT $RPM_BUILD_DIR/%{name}-%{version}
-
-%changelog
-* Wed Sep 12 2001 Tim Powers <timp@redhat.com>
-- rebuild with new gcc and binutils
-
-* Thu Aug  9 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.2-2
-- Make sure %{name}-kmozilla isn't built on ia64
-
-* Mon Jul 23 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.2-0.cvs20010723.2
-- Move python bindings to separate package
-- Add perl bindings
-- Shut up rpmlint
-
-* Wed Feb 21 2001 Bernhard Rosenkraenzer <bero@redhat.com>
-- 2.1
-
-* Sun Jan 28 2001 Bernhard Rosenkraenzer <bero@redhat.com>
-- initial RPM
