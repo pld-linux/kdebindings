@@ -10,7 +10,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	3
+Release:	4
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
@@ -409,13 +409,15 @@ cp %{_datadir}/automake/config.sub admin
 	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with-extra-includes=%{py_incdir} \
-	--with-pythondir=%{py_libdir}
+	--with-pythondir=%{py_libdir} \
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 
 cd kalyptus
 %{__autoconf}
-%configure
+%configure \
+	--with-qt-libraries=%{_libdir}
 %{__make}
 cd -
 
@@ -432,7 +434,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	destdir=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	kde_libs_htmldir=%{_kdedocdir} 
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
 	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
