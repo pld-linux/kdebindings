@@ -1,6 +1,12 @@
 #
 # Conditional build:
-%bcond_with java # enable java
+%bcond_without	ruby	# disable ruby
+%bcond_with	java	# enable java
+
+%ifarch amd64
+# needs fix (lib vs lib64 problem)
+%undefine	with_ruby
+%endif
 
 %define		_state	stable
 %define		_kver	3.4
@@ -11,7 +17,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	1.1
+Release:	1.2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
@@ -33,7 +39,7 @@ BuildRequires:	libpng-devel
 #BuildRequires:	pnet >= 0.4.8
 BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	python-devel >= 2.1
-BuildRequires:	ruby-devel
+%{with_ruby:BuildRequires:	ruby-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -535,6 +541,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*smokekde.la
 %{_includedir}/smoke.h
 
+%if %{with ruby}
 # ruby bindings
 
 %files ruby-qt
@@ -555,6 +562,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ruby/site_ruby/1.8/KDE/korundum.rb
 %{_libdir}/ruby/site_ruby/1.8/Korundum.rb
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/korundum.so.0.0.0
+%endif
 
 # java bindings
 
