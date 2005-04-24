@@ -11,13 +11,12 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	1
+Release:	1.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	bac87a665ce5e5704f48336122052fb4
 Patch0:		%{name}-ac.patch
-Patch1:		%{name}-lib64.patch
 #Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
@@ -397,12 +396,8 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %setup -q
 #%patch100 -p1
 %patch0 -p1 -b .niedakh
-%if "%{_lib}" == "lib64"
-%patch1 -p1
-%endif
 
 %build
-
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE python\"" > python/configure.in.in
 
@@ -411,6 +406,9 @@ cp %{_datadir}/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
+%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+%endif
 	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with-extra-includes=%{py_incdir} \
@@ -422,6 +420,9 @@ cp %{_datadir}/automake/config.sub admin
 cd kalyptus
 %{__autoconf}
 %configure \
+%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+%endif
 	--with-qt-libraries=%{_libdir}
 %{__make}
 cd -
