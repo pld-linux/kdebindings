@@ -17,7 +17,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	1.2
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
