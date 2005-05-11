@@ -3,7 +3,7 @@
 %bcond_without	ruby	# disable ruby
 %bcond_with	java	# enable java
 
-%ifarch amd64
+%if "%{_lib}" != "lib"
 # needs fix (lib vs lib64 problem)
 %undefine	with_ruby
 %endif
