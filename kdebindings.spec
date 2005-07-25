@@ -9,8 +9,8 @@
 %endif
 
 %define		_state	stable
-%define		_kver	3.4.1
-%define		_ver	3.4.1
+%define		_kver	3.4.2
+%define		_ver	3.4.2
 
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
@@ -21,7 +21,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	18a4e2c42d34bb86279e691498482951
+# Source0-md5:	1ee2348e03b0af625679d0bb2c8aad2b
 Patch0:		%{name}-ac.patch
 #Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
