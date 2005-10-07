@@ -9,19 +9,19 @@
 %endif
 
 %define		_state	stable
-%define		_kver	3.4.2
-%define		_ver	3.4.2
+%define		_kver	3.4.3
+%define		_ver	3.4.3
 
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	1ee2348e03b0af625679d0bb2c8aad2b
+# Source0-md5:	0fb123df324b4d007351c89051532dee
 Patch0:		%{name}-ac.patch
 #Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
@@ -38,6 +38,7 @@ BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
 #BuildRequires:	pnet >= 0.4.8
 BuildRequires:	perl-modules >= 1:5.8.0
+BuildRequires:	perl-devel
 BuildRequires:	python-devel >= 2.1
 %{?with_ruby:BuildRequires:	ruby-devel}
 BuildRequires:	zlib-devel
