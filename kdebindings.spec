@@ -454,6 +454,9 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
 	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
 
+mv -f $RPM_BUILD_ROOT%{_desktopdir}/Utilities/embedjs.desktop \
+	$RPM_BUILD_ROOT%{_desktopdir}/kde
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -505,7 +508,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/servicetypes/binding_type.desktop
 %{_mandir}/man1/kjscmd.1*
 %{_iconsdir}/*/*/apps/embedjs.png
-%{_desktopdir}/Utilities/embedjs.desktop
+%{_desktopdir}/kde/embedjs.desktop
 
 %files kjsembed-devel
 %defattr(644,root,root,755)
