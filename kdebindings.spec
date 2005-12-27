@@ -17,7 +17,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	%{_ver}
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
@@ -40,7 +40,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	perl-devel
 BuildRequires:	python-devel >= 2.1
-%{?with_ruby:BuildRequires:	ruby-devel}
+%{?with_ruby:BuildRequires:	ruby-modules-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -247,7 +247,7 @@ Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	qt >= 6:3.3.3
-Requires:	ruby
+Requires:	ruby-modules
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 
 %description ruby-qt
