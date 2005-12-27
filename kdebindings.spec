@@ -40,7 +40,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	perl-devel
 BuildRequires:	python-devel >= 2.1
-%{?with_ruby:BuildRequires:	ruby-modules-devel}
+%{?with_ruby:BuildRequires:	ruby-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
