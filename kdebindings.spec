@@ -43,7 +43,7 @@ BuildRequires:	python-devel >= 2.1
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
-%ruby_mod_ver_requires_eq
+%{?ruby_mod_ver_requires_eq}
 %endif
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -251,7 +251,7 @@ Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	qt >= 6:3.3.3
-%ruby_mod_ver_requires_eq
+%{?ruby_mod_ver_requires_eq}
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 
 %description ruby-qt
