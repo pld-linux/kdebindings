@@ -36,18 +36,18 @@ BuildRequires:	kdelibs-devel >= 9:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
-#BuildRequires:	pnet >= 0.4.8
-BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	perl-devel
+BuildRequires:	perl-modules >= 1:5.8.0
+#BuildRequires:	pnet >= 0.4.8
 BuildRequires:	python-devel >= 2.1
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
 %{?ruby_mod_ver_requires_eq}
 %endif
-BuildRequires:	zlib-devel
-BuildRequires:	xorg-lib-libXt-devel
 BuildRequires:	xorg-lib-libXmu-devel
+BuildRequires:	xorg-lib-libXt-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -68,8 +68,8 @@ KDE.
 Summary:	Qt/KDE bindings generator
 Summary(pl):	Generator dowi±zañ do Qt/KDE
 Group:		X11/Development/Libraries
-Requires:	perl >= 5.6.1
 Requires:	kdelibs >= 9:%{version}
+Requires:	perl >= 5.6.1
 Requires:	qt >= 6:3.3.3
 
 %description kalyptus
@@ -85,9 +85,9 @@ nag³ówkowych.
 Summary:	C bindings for DCOP
 Summary(pl):	Dowi±zania w jêzyku C dla DCOP
 Group:		X11/Development/Libraries
-Requires:	libgcc
-Requires:	kdelibs >= 9:%{version}
 Requires:	gtk+ >= 1.2.6
+Requires:	kdelibs >= 9:%{version}
+Requires:	libgcc
 Obsoletes:	kdebindings-dcop-c
 
 %description c-dcop
@@ -103,9 +103,9 @@ siê miêdzy sob±.
 Summary:	C bindings for DCOP [development files]
 Summary(pl):	Dowi±zania w jêzyku C dla DCOP [nag³ówki]
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= 9:%{version}
-Requires:	gtk+-devel >= 1.2.6
 Requires:	%{name}-c-dcop = %{version}-%{release}
+Requires:	gtk+-devel >= 1.2.6
+Requires:	kdelibs-devel >= 9:%{version}
 Obsoletes:	kdebindings-dcop-c-devel
 
 %description c-dcop-devel
@@ -121,8 +121,8 @@ Summary(pl):	Dowi±zania jêzyka Java dla DCOP
 Group:		X11/Development/Libraries
 Requires:	jdk
 Requires:	kdelibs >= 9:%{version}
-Requires:	qt >= 6:3.3.3
 Requires:	libart_lgpl
+Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-java
 
 %description java-dcop
@@ -152,8 +152,8 @@ Dowi±zania jêzyka Java dla qt.
 Summary:	Java bindings for KDE
 Summary(pl):	Dowi±zania jêzyka Java dla KDE
 Group:		X11/Development/Libraries
-Requires:	jdk
 Requires:	%{name}-qt-java = %{version}-%{release}
+Requires:	jdk
 Requires:	kdelibs >= 9:%{version}
 Obsoletes:	kdebindings-kde-java
 
@@ -197,9 +197,9 @@ Pliki nag³ówkowe dla kjsembed.
 Summary:	Mozilla kpart
 Summary(pl):	KPart mozilli
 Group:		X11/Applications
-Requires:	mozilla
-Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-xparts-kde = %{version}-%{release}
+Requires:	kdelibs >= 9:%{version}
+Requires:	mozilla
 
 %description kmozilla
 This KPart allows using mozilla as a browser engine.
@@ -214,8 +214,8 @@ khtml.
 Summary:	Perl bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
 Group:		X11/Development/Libraries
-Requires:	perl-modules >= 5.6.1
 Requires:	kdelibs >= 9:%{version}
+Requires:	perl-modules >= 5.6.1
 Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-perl
 
@@ -266,10 +266,10 @@ Dowi±zania Qt dla Ruby przy u¿yciu technologii SMOKE.
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	qt >= 6:3.3.3
-Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-ruby-qt = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
+Requires:	kdelibs >= 9:%{version}
+Requires:	qt >= 6:3.3.3
 
 %description ruby-kde
 A KDE bindings for Ruby using the SMOKE technology.
@@ -320,8 +320,8 @@ KDE.
 Summary:	smoke-qt header files
 Summary(pl):	Pliki nag³ówkowe dla smoke-qt
 Group:		X11/Development/Libraries
-Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
+Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
 Requires:	kdelibs-devel >= 9:%{version}
 
 %description smoke-kde-devel
@@ -455,7 +455,7 @@ rm -rf $RPM_BUILD_ROOT
 	destdir=$RPM_BUILD_ROOT \
 	kde_appsdir=%{_desktopdir} \
 	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir} 
+	kde_libs_htmldir=%{_kdedocdir}
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
 	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
