@@ -21,7 +21,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	302f6a842b5a29701846c49a24a64039
+# Source0-md5:	cb26ce2e4efc35ca2c9c7a47807d679a
 Patch0:		%{name}-ac.patch
 #Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
