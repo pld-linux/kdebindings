@@ -9,18 +9,18 @@
 %endif
 
 %define		_state	stable
-%define		_kver	3.5.1
-%define		_ver	3.5.1
+%define		_minlibsevr	9:%{version}
 
+%define		pdir	DCOP
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	%{_ver}
+Version:	3.5.2
 Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kver}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	302f6a842b5a29701846c49a24a64039
 Patch0:		%{name}-ac.patch
 #Patch100:	%{name}-branch.diff
@@ -32,13 +32,13 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2.6
 %{?with_java:BuildRequires:	jdk}
-BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
-#BuildRequires:	pnet >= 0.4.8
-BuildRequires:	perl-modules >= 1:5.8.0
 BuildRequires:	perl-devel
+BuildRequires:	perl-modules >= 1:5.8.0
+#BuildRequires:	pnet >= 0.4.8
 BuildRequires:	python-devel >= 2.1
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
@@ -66,8 +66,8 @@ KDE.
 Summary:	Qt/KDE bindings generator
 Summary(pl):	Generator dowi±zañ do Qt/KDE
 Group:		X11/Development/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	perl >= 5.6.1
-Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 6:3.3.3
 
 %description kalyptus
@@ -83,9 +83,9 @@ nag³ówkowych.
 Summary:	C bindings for DCOP
 Summary(pl):	Dowi±zania w jêzyku C dla DCOP
 Group:		X11/Development/Libraries
-Requires:	libgcc
-Requires:	kdelibs >= 9:%{version}
 Requires:	gtk+ >= 1.2.6
+Requires:	kdelibs >= %{_minlibsevr}
+Requires:	libgcc
 Obsoletes:	kdebindings-dcop-c
 
 %description c-dcop
@@ -101,9 +101,9 @@ siê miêdzy sob±.
 Summary:	C bindings for DCOP [development files]
 Summary(pl):	Dowi±zania w jêzyku C dla DCOP [nag³ówki]
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= 9:%{version}
-Requires:	gtk+-devel >= 1.2.6
 Requires:	%{name}-c-dcop = %{version}-%{release}
+Requires:	gtk+-devel >= 1.2.6
+Requires:	kdelibs-devel >= %{_minlibsevr}
 Obsoletes:	kdebindings-dcop-c-devel
 
 %description c-dcop-devel
@@ -118,9 +118,9 @@ Summary:	Java bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Java dla DCOP
 Group:		X11/Development/Libraries
 Requires:	jdk
-Requires:	kdelibs >= 9:%{version}
-Requires:	qt >= 6:3.3.3
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	libart_lgpl
+Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-java
 
 %description java-dcop
@@ -150,9 +150,9 @@ Dowi±zania jêzyka Java dla qt.
 Summary:	Java bindings for KDE
 Summary(pl):	Dowi±zania jêzyka Java dla KDE
 Group:		X11/Development/Libraries
-Requires:	jdk
 Requires:	%{name}-qt-java = %{version}-%{release}
-Requires:	kdelibs >= 9:%{version}
+Requires:	jdk
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebindings-kde-java
 
 %description java-kde
@@ -167,7 +167,7 @@ Dowi±zania jêzyka Java dla KDE.
 Summary:	A library for embedding the KJS JavaScript interpreter
 Summary(pl):	Biblioteka pozwalaj±ca na zagnie¿d¿anie interpretera KJS
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description kjsembed
 A library for embedding the KJS JavaScript interpreter in application.
@@ -181,7 +181,7 @@ Summary:	kjsembed header files
 Summary(pl):	Pliki nag³ówkowe dla kjsembed
 Group:		X11/Development/Libraries
 Requires:	%{name}-kjsembed = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description kjsembed-devel
 kjsembed header files.
@@ -195,9 +195,9 @@ Pliki nag³ówkowe dla kjsembed.
 Summary:	Mozilla kpart
 Summary(pl):	KPart mozilli
 Group:		X11/Applications
-Requires:	mozilla
-Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-xparts-kde = %{version}-%{release}
+Requires:	kdelibs >= %{_minlibsevr}
+Requires:	mozilla
 
 %description kmozilla
 This KPart allows using mozilla as a browser engine.
@@ -212,8 +212,8 @@ khtml.
 Summary:	Perl bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
 Group:		X11/Development/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	perl-modules >= 5.6.1
-Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-perl
 
@@ -233,7 +233,7 @@ Summary(pl):	Dowi±zania jêzyka Python dla DCOP
 Group:		X11/Development/Libraries
 # does it really need devel?
 %pyrequires_eq	python-devel
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-python
 
@@ -264,10 +264,10 @@ Dowi±zania Qt dla Ruby przy u¿yciu technologii SMOKE.
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	qt >= 6:3.3.3
-Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-ruby-qt = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
+Requires:	kdelibs >= %{_minlibsevr}
+Requires:	qt >= 6:3.3.3
 
 %description ruby-kde
 A KDE bindings for Ruby using the SMOKE technology.
@@ -305,7 +305,7 @@ Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-qt = %{version}-%{release}
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description smoke-kde
 SMOKE library (Scripting Meta Object Kompiler Engine) dla KDE.
@@ -318,9 +318,9 @@ KDE.
 Summary:	smoke-qt header files
 Summary(pl):	Pliki nag³ówkowe dla smoke-qt
 Group:		X11/Development/Libraries
-Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description smoke-kde-devel
 smoke-kde header files.
@@ -371,7 +371,7 @@ Summary:	xparts-interfaces header files
 Summary(pl):	Pliki nag³ówkowe dla xparts-interfaces
 Group:		X11/Development/Libraries
 Requires:	%{name}-xparts-interfaces = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description xparts-interfaces-devel
 xparts-interfaces header files.
@@ -383,7 +383,7 @@ Pliki nag³ówkowe dla xparts-interfaces.
 Summary:	XParts technology for KDE
 Summary(pl):	Technologia XParts dla KDE
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description xparts-kde
 XParts technology: KDE embedding.
@@ -436,7 +436,6 @@ cd kalyptus
 %endif
 	--with-qt-libraries=%{_libdir}
 %{__make}
-cd -
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -453,7 +452,7 @@ rm -rf $RPM_BUILD_ROOT
 	destdir=$RPM_BUILD_ROOT \
 	kde_appsdir=%{_desktopdir} \
 	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir} 
+	kde_libs_htmldir=%{_kdedocdir}
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
 	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
