@@ -428,7 +428,7 @@ cp %{_datadir}/automake/config.sub admin
 	--with-pythondir=%{py_libdir} \
 	--with-qt-libraries=%{_libdir}
 
-%{__make}
+%{__make} -j1
 
 cd kalyptus
 %{__autoconf}
@@ -437,7 +437,7 @@ cd kalyptus
 	--enable-libsuffix=64 \
 %endif
 	--with-qt-libraries=%{_libdir}
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
