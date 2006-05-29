@@ -16,12 +16,12 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.2
+Version:	3.5.3
 Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	cb26ce2e4efc35ca2c9c7a47807d679a
+# Source0-md5:	5595b2de6593d1d535ba520abeab4580
 Patch0:		%{name}-ac.patch
 #Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
@@ -426,7 +426,7 @@ cp %{_datadir}/automake/config.sub admin
 	--with-pythondir=%{py_libdir} \
 	--with-qt-libraries=%{_libdir}
 
-%{__make}
+%{__make} -j1
 
 cd kalyptus
 %{__autoconf}
@@ -435,7 +435,7 @@ cd kalyptus
 	--enable-libsuffix=64 \
 %endif
 	--with-qt-libraries=%{_libdir}
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
