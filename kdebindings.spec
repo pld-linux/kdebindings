@@ -1,22 +1,29 @@
 #
 # Conditional build:
-%bcond_with java # enable java
+%bcond_without	ruby	# disable ruby
+%bcond_with	java	# enable java
+
+%if "%{_lib}" != "lib"
+# needs fix (lib vs lib64 problem)
+%undefine	with_ruby
+%endif
 
 %define		_state	stable
-%define		_ver	3.3.0
+%define		_minlibsevr	9:%{version}
 
+%define		pdir	DCOP
 Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	%{_ver}
-Release:	2
+Version:	3.5.3
+Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{version}.tar.bz2
-# Source0-md5: 63f7cd3ae52397c2182527899efb4c80
-Patch100:	%{name}-branch.diff
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	5595b2de6593d1d535ba520abeab4580
 Patch0:		%{name}-ac.patch
+#Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -25,14 +32,19 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2.6
 %{?with_java:BuildRequires:	jdk}
-BuildRequires:	kdelibs-devel >= 9:%{version}
+BuildRequires:	kdelibs-devel >= %{_minlibsevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	mono-devel >= 0.16
-#BuildRequires:	pnet >= 0.4.8
+BuildRequires:	perl-devel
 BuildRequires:	perl-modules >= 1:5.8.0
+#BuildRequires:	pnet >= 0.4.8
 BuildRequires:	python-devel >= 2.1
+%if %{with ruby}
+BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
+%{?ruby_mod_ver_requires_eq}
+%endif
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -51,11 +63,11 @@ diferentes linguagens de programação para uso da interface nativa do
 KDE.
 
 %package kalyptus
-Summary:	QT/KDE bindings generator
-Summary(pl):	Generator dowi±zañ do QT/KDE
+Summary:	Qt/KDE bindings generator
+Summary(pl):	Generator dowi±zañ do Qt/KDE
 Group:		X11/Development/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	perl >= 5.6.1
-Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 6:3.3.3
 
 %description kalyptus
@@ -63,7 +75,7 @@ Kalyptus creates language bindings for Qt and KDE C++ libraries
 directly from the headers.
 
 %description kalyptus -l pl
-Kalyptus s³u¿y do generowania dowi±zañ do QT/KDE bezpo¶rednio z plików
+Kalyptus s³u¿y do generowania dowi±zañ do Qt/KDE bezpo¶rednio z plików
 nag³ówkowych.
 
 # c bindings
@@ -71,9 +83,9 @@ nag³ówkowych.
 Summary:	C bindings for DCOP
 Summary(pl):	Dowi±zania w jêzyku C dla DCOP
 Group:		X11/Development/Libraries
-Requires:	libgcc
-Requires:	kdelibs >= 9:%{version}
 Requires:	gtk+ >= 1.2.6
+Requires:	kdelibs >= %{_minlibsevr}
+Requires:	libgcc
 Obsoletes:	kdebindings-dcop-c
 
 %description c-dcop
@@ -89,9 +101,9 @@ siê miêdzy sob±.
 Summary:	C bindings for DCOP [development files]
 Summary(pl):	Dowi±zania w jêzyku C dla DCOP [nag³ówki]
 Group:		X11/Development/Libraries
-Requires:	kdelibs-devel >= 9:%{version}
-Requires:	gtk+-devel >= 1.2.6
 Requires:	%{name}-c-dcop = %{version}-%{release}
+Requires:	gtk+-devel >= 1.2.6
+Requires:	kdelibs-devel >= %{_minlibsevr}
 Obsoletes:	kdebindings-dcop-c-devel
 
 %description c-dcop-devel
@@ -106,9 +118,9 @@ Summary:	Java bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Java dla DCOP
 Group:		X11/Development/Libraries
 Requires:	jdk
-Requires:	kdelibs >= 9:%{version}
-Requires:	qt >= 6:3.3.3
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	libart_lgpl
+Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-java
 
 %description java-dcop
@@ -138,9 +150,9 @@ Dowi±zania jêzyka Java dla qt.
 Summary:	Java bindings for KDE
 Summary(pl):	Dowi±zania jêzyka Java dla KDE
 Group:		X11/Development/Libraries
-Requires:	jdk
 Requires:	%{name}-qt-java = %{version}-%{release}
-Requires:	kdelibs >= 9:%{version}
+Requires:	jdk
+Requires:	kdelibs >= %{_minlibsevr}
 Obsoletes:	kdebindings-kde-java
 
 %description java-kde
@@ -155,7 +167,7 @@ Dowi±zania jêzyka Java dla KDE.
 Summary:	A library for embedding the KJS JavaScript interpreter
 Summary(pl):	Biblioteka pozwalaj±ca na zagnie¿d¿anie interpretera KJS
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description kjsembed
 A library for embedding the KJS JavaScript interpreter in application.
@@ -164,12 +176,12 @@ A library for embedding the KJS JavaScript interpreter in application.
 Biblioteka pozwalaj±ca na zagnie¿d¿anie interpretera JavaScript - KJS,
 w dowolnej aplikacji.
 
-%package  kjsembed-devel
+%package kjsembed-devel
 Summary:	kjsembed header files
 Summary(pl):	Pliki nag³ówkowe dla kjsembed
 Group:		X11/Development/Libraries
 Requires:	%{name}-kjsembed = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description kjsembed-devel
 kjsembed header files.
@@ -183,9 +195,9 @@ Pliki nag³ówkowe dla kjsembed.
 Summary:	Mozilla kpart
 Summary(pl):	KPart mozilli
 Group:		X11/Applications
-Requires:	mozilla
-Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-xparts-kde = %{version}-%{release}
+Requires:	kdelibs >= %{_minlibsevr}
+Requires:	mozilla
 
 %description kmozilla
 This KPart allows using mozilla as a browser engine.
@@ -200,8 +212,8 @@ khtml.
 Summary:	Perl bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Perl dla DCOP
 Group:		X11/Development/Libraries
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	perl-modules >= 5.6.1
-Requires:	kdelibs >= 9:%{version}
 Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-perl
 
@@ -219,8 +231,9 @@ siê miêdzy sob±.
 Summary:	Python bindings for DCOP
 Summary(pl):	Dowi±zania jêzyka Python dla DCOP
 Group:		X11/Development/Libraries
-Requires:	python-devel >= 2.1
-Requires:	kdelibs >= 9:%{version}
+# does it really need devel?
+%pyrequires_eq	python-devel
+Requires:	kdelibs >= %{_minlibsevr}
 Requires:	qt >= 6:3.3.3
 Obsoletes:	kdebindings-dcop-python
 
@@ -238,7 +251,7 @@ Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	qt >= 6:3.3.3
-Requires:	ruby
+%{?ruby_mod_ver_requires_eq}
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 
 %description ruby-qt
@@ -251,10 +264,10 @@ Dowi±zania Qt dla Ruby przy u¿yciu technologii SMOKE.
 Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
-Requires:	qt >= 6:3.3.3
-Requires:	kdelibs >= 9:%{version}
 Requires:	%{name}-ruby-qt = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
+Requires:	kdelibs >= %{_minlibsevr}
+Requires:	qt >= 6:3.3.3
 
 %description ruby-kde
 A KDE bindings for Ruby using the SMOKE technology.
@@ -292,7 +305,7 @@ Summary:	A SMOKE library for qt
 Summary(pl):	Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-qt = %{version}-%{release}
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description smoke-kde
 SMOKE library (Scripting Meta Object Kompiler Engine) dla KDE.
@@ -305,9 +318,9 @@ KDE.
 Summary:	smoke-qt header files
 Summary(pl):	Pliki nag³ówkowe dla smoke-qt
 Group:		X11/Development/Libraries
-Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description smoke-kde-devel
 smoke-kde header files.
@@ -324,10 +337,10 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-c-dcop = %{version}-%{release}
 
 %description xparts-gtk
-XParts technology: gtk embedding.
+XParts technology: GTK+ embedding.
 
 %description xparts-gtk -l pl
-Technologia XParts: zagnie¿d¿anie gtk.
+Technologia XParts: zagnie¿d¿anie GTK+.
 
 %package xparts-gtk-devel
 Summary:	xparts-gtk header files
@@ -353,12 +366,12 @@ Common libraries for XParts technology.
 %description xparts-interfaces -l pl
 Wspó³dzielone biblioteki dla technologii XParts.
 
-%package  xparts-interfaces-devel
+%package xparts-interfaces-devel
 Summary:	xparts-interfaces header files
 Summary(pl):	Pliki nag³ówkowe dla xparts-interfaces
 Group:		X11/Development/Libraries
 Requires:	%{name}-xparts-interfaces = %{version}-%{release}
-Requires:	kdelibs-devel >= 9:%{version}
+Requires:	kdelibs-devel >= %{_minlibsevr}
 
 %description xparts-interfaces-devel
 xparts-interfaces header files.
@@ -370,7 +383,7 @@ Pliki nag³ówkowe dla xparts-interfaces.
 Summary:	XParts technology for KDE
 Summary(pl):	Technologia XParts dla KDE
 Group:		X11/Development/Libraries
-Requires:	kdelibs >= 9:%{version}
+Requires:	kdelibs >= %{_minlibsevr}
 
 %description xparts-kde
 XParts technology: KDE embedding.
@@ -392,12 +405,10 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1 -b .niedakh
-##%patch2 -p1
 
 %build
-
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE python\"" > python/configure.in.in
 
@@ -405,19 +416,26 @@ cp %{_datadir}/automake/config.sub admin
 #export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
 
-%configure  \
+%configure \
+%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+%endif
 	--with%{!?with_java:out}-java%{?with_java:=%{_libdir}/java} \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--with-extra-includes=%{py_incdir} \
-	--with-pythondir=%{py_libdir}
+	--with-pythondir=%{py_libdir} \
+	--with-qt-libraries=%{_libdir}
 
-%{__make}
+%{__make} -j1
 
 cd kalyptus
 %{__autoconf}
-%configure
-%{__make}
-cd -
+%configure \
+%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+%endif
+	--with-qt-libraries=%{_libdir}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -425,17 +443,22 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	destdir=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_desktopdir} \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
 %{__make} -C kalyptus install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	destdir=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_desktopdir} \
 	kde_htmldir=%{_kdedocdir} \
 	kde_libs_htmldir=%{_kdedocdir}
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
 	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
+
+mv -f $RPM_BUILD_ROOT%{_desktopdir}/Utilities/embedjs.desktop \
+	$RPM_BUILD_ROOT%{_desktopdir}/kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -457,6 +480,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kjsembed
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/jsaccess
+%attr(755,root,root) %{_bindir}/embedjs
 %attr(755,root,root) %{_bindir}/kjscmd
 %attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
 %{_libdir}/kde3/libcustomobjectplugin.la
@@ -469,15 +493,25 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libjsconsoleplugin.so
 %{_libdir}/kde3/libqprocessplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libqprocessplugin.so
+%{_libdir}/kde3/libjavascript.la
+%attr(755,root,root) %{_libdir}/kde3/libjavascript.so
+%{_libdir}/kde3/libfileitemplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libfileitemplugin.so
 %{_desktopdir}/kde/kjscmd.desktop
 %dir %{_datadir}/apps/kjsembed
 %{_datadir}/apps/kjsembed/cmdline.js
+%{_datadir}/apps/embedjs
+%{_datadir}/apps/kate/scripts/swaptabs*
 %{_datadir}/services/customobject_plugin.desktop
 %{_datadir}/services/customqobject_plugin.desktop
 %{_datadir}/services/imagefx_plugin.desktop
 %{_datadir}/services/qprocess_plugin.desktop
+%{_datadir}/services/javascript.desktop
+%{_datadir}/services/kfileitem_plugin.desktop
 %{_datadir}/servicetypes/binding_type.desktop
 %{_mandir}/man1/kjscmd.1*
+%{_iconsdir}/*/*/apps/embedjs.png
+%{_desktopdir}/kde/embedjs.desktop
 
 %files kjsembed-devel
 %defattr(644,root,root,755)
@@ -514,6 +548,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*smokekde.la
 %{_includedir}/smoke.h
 
+%if %{with ruby}
 # ruby bindings
 
 %files ruby-qt
@@ -525,13 +560,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/ruby/site_ruby/1.8/Qt.rb
 %{_libdir}/ruby/site_ruby/1.8/Qt/qtruby.rb
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qtruby.so.0.0.0
+%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qui.so.0.0.0
 
 %files ruby-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/krubyinit
+%attr(755,root,root) %{_bindir}/rbkconfig_compiler
 %{_libdir}/ruby/site_ruby/1.8/KDE/korundum.rb
 %{_libdir}/ruby/site_ruby/1.8/Korundum.rb
 %attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/korundum.so.0.0.0
+%endif
 
 # java bindings
 
