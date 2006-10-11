@@ -24,6 +24,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 # Source0-md5:	097eb4311f5715f36fdc83dc5badb476
 Patch0:		%{name}-ac.patch
 #Patch100:	%{name}-branch.diff
+Patch1:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -407,6 +408,7 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %setup -q
 #%patch100 -p1
 %patch0 -p1 -b .niedakh
+%patch1 -p1
 
 %build
 # dont build pyQt and pyKDE since we build it from a separate spec
