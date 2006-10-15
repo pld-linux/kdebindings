@@ -1,3 +1,6 @@
+# TODO
+# - python-dcop binding .so files are installed into /usr/share after pld-common-PLD patch!
+# - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
 #
 # Conditional build:
 %bcond_without	ruby	# disable ruby
@@ -16,15 +19,16 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.4
-Release:	1
+Version:	3.5.5
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	097eb4311f5715f36fdc83dc5badb476
-Patch0:		%{name}-ac.patch
-#Patch100:	%{name}-branch.diff
-Patch1:		kde-ac260-lt.patch
+# Source0-md5:	e0da219943407a786c2ceea1605fadd1
+#Patch100: %{name}-branch.diff
+Patch0:		kde-common-PLD.patch
+Patch1:		%{name}-ac.patch
+Patch2:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -40,7 +44,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-modules >= 1:5.8.0
 #BuildRequires:	pnet >= 0.4.8
-BuildRequires:	python-devel >= 2.1
+BuildRequires:	python-devel >= 1:2.1
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
@@ -407,17 +411,16 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %prep
 %setup -q
 #%patch100 -p1
-%patch0 -p1 -b .niedakh
+%patch0 -p1
 %patch1 -p1
+%patch2 -p1
+
+# dont build pyQt and pyKDE since we build it from a separate spec
+echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
 
 %build
-# dont build pyQt and pyKDE since we build it from a separate spec
-echo "DO_NOT_COMPILE=\"\$DO_NOT_COMPILE python\"" > python/configure.in.in
-
 cp %{_datadir}/automake/config.sub admin
-#export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make} -f admin/Makefile.common cvs
-
 %configure \
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
@@ -521,15 +524,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*kjsembed.la
 %{_includedir}/kjsembed
 
-# python bindings for dcop, others wont be built
-
+# python bindings for dcop, others won't be built
 %files python-dcop
 %defattr(644,root,root,755)
-%{py_libdir}/pydcop.py
-%attr(755,root,root) %{py_libdir}/site-packages/pcop.so
+#%{py_libdir}/pydcop.py
+#%attr(755,root,root) %{py_libdir}/site-packages/pcop.so
+%{py_scriptdir}/pydcop.py
+# FIXME: should be in /usr/lib!
+%{py_sitescriptdir}/pcop.la
+%attr(755,root,root) %{py_sitescriptdir}/pcop.so
 
 # C bindings for qt and kde using the smoke technology
-
 %files smoke-qt
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/*smokeqt.so.1.2.2
