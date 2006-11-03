@@ -1,5 +1,4 @@
 # TODO
-# - python-dcop binding .so files are installed into /usr/share after pld-common-PLD patch!
 # - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
 #
 # Conditional build:
@@ -31,7 +30,6 @@ Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
-BuildRequires:	- python-dcop binding .so files are installed into /usr/share after pld-common-PLD patch!
 BuildRequires:	automake
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
@@ -463,8 +461,15 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
 	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
 
-mv -f $RPM_BUILD_ROOT%{_desktopdir}/Utilities/embedjs.desktop \
-	$RPM_BUILD_ROOT%{_desktopdir}/kde
+install -d $RPM_BUILD_ROOT%{py_sitedir}
+mv $RPM_BUILD_ROOT%{py_sitescriptdir}/pcop.{so,la} $RPM_BUILD_ROOT%{py_sitedir}
+install -d $RPM_BUILD_ROOT%{py_sitescriptdir}
+mv $RPM_BUILD_ROOT{%{py_scriptdir},%{py_sitescriptdir}}/pydcop.py
+%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
+%py_postclean
+
+mv -f $RPM_BUILD_ROOT%{_desktopdir}/{Utilities,kde}/embedjs.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -528,12 +533,9 @@ rm -rf $RPM_BUILD_ROOT
 # python bindings for dcop, others won't be built
 %files python-dcop
 %defattr(644,root,root,755)
-#%{py_libdir}/pydcop.py
-#%attr(755,root,root) %{py_libdir}/site-packages/pcop.so
-%{py_scriptdir}/pydcop.py
-# FIXME: should be in /usr/lib!
-%{py_sitescriptdir}/pcop.la
-%attr(755,root,root) %{py_sitescriptdir}/pcop.so
+%{py_sitescriptdir}/pydcop.py[co]
+%{py_sitedir}/pcop.la
+%attr(755,root,root) %{py_sitedir}/pcop.so
 
 # C bindings for qt and kde using the smoke technology
 %files smoke-qt
