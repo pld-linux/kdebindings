@@ -31,6 +31,7 @@ Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
+BuildRequires:	- python-dcop binding .so files are installed into /usr/share after pld-common-PLD patch!
 BuildRequires:	automake
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
