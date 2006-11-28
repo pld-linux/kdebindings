@@ -52,6 +52,8 @@ BuildRequires:	ruby-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define         _noautoreq      libtool(.*)
+
 %description
 Bindings for the K Desktop Environment: provide interfaces to many
 diferent programming languages to use KDE native resources and
