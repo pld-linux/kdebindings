@@ -1,0 +1,11 @@
+--- dcoppython/shell/marshaller.cpp.org	2007-01-09 20:00:03.064973250 +0100
++++ dcoppython/shell/marshaller.cpp	2007-01-09 20:00:39.467248250 +0100
+@@ -124,7 +124,7 @@
+     if (!PyDict_Check(obj)) return false;
+ 
+ 
+-    int c=0;
++    Py_ssize_t c=0;
+     PyObject *key, *val;
+     while (PyDict_Next(obj, &c, &key, &val)==1)
+       if (!key_type.isMarshallable(key) ||
