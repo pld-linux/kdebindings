@@ -19,7 +19,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	3.5.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
@@ -28,6 +28,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
+Patch3:		kde-am.patch
+Patch4:		%{name}-python.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -415,6 +417,8 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p0
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
@@ -432,8 +436,6 @@ cp %{_datadir}/automake/config.sub admin
 	--with-pythondir=%{py_libdir} \
 	--with-qt-libraries=%{_libdir}
 
-%{__make} -j1
-
 cd kalyptus
 %{__autoconf}
 %configure \
@@ -441,7 +443,10 @@ cd kalyptus
 	--enable-libsuffix=64 \
 %endif
 	--with-qt-libraries=%{_libdir}
+cd ..
+
 %{__make} -j1
+%{__make} -C kalyptus -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -473,6 +478,8 @@ mv $RPM_BUILD_ROOT{%{py_scriptdir},%{py_sitescriptdir}}/pydcop.py
 
 mv -f $RPM_BUILD_ROOT%{_desktopdir}/{Utilities,kde}/embedjs.desktop
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -496,19 +503,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/embedjs
 %attr(755,root,root) %{_bindir}/kjscmd
 %attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
-%{_libdir}/kde3/libcustomobjectplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libcustomobjectplugin.so
-%{_libdir}/kde3/libcustomqobjectplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libcustomqobjectplugin.so
-%{_libdir}/kde3/libimagefxplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libimagefxplugin.so
-%{_libdir}/kde3/libjsconsoleplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libjsconsoleplugin.so
-%{_libdir}/kde3/libqprocessplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libqprocessplugin.so
-%{_libdir}/kde3/libjavascript.la
 %attr(755,root,root) %{_libdir}/kde3/libjavascript.so
-%{_libdir}/kde3/libfileitemplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libfileitemplugin.so
 %{_desktopdir}/kde/kjscmd.desktop
 %dir %{_datadir}/apps/kjsembed
@@ -536,7 +536,7 @@ rm -rf $RPM_BUILD_ROOT
 %files python-dcop
 %defattr(644,root,root,755)
 %{py_sitescriptdir}/pydcop.py[co]
-%{py_sitedir}/pcop.la
+#%{py_sitedir}/pcop.la
 %attr(755,root,root) %{py_sitedir}/pcop.so
 
 # C bindings for qt and kde using the smoke technology
@@ -601,7 +601,7 @@ rm -rf $RPM_BUILD_ROOT
 #%{_prefix}/doc/javalib
 %attr(755,root,root) %{_libdir}/*qtjava*.so.1.0.0
 %attr(755,root,root) %{_libdir}/*qtjava*.so
-%{_libdir}/*qtjava*.la
+#%{_libdir}/*qtjava*.la
 %{_libdir}/java/qtjava.jar
 %doc qtjava/javalib/docs/en/*.html
 %doc qtjava/javalib/docs/en/*.sgml
@@ -611,7 +611,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/koala
 %attr(755,root,root) %{_libdir}/*kdejava.so.1.0.0
 %attr(755,root,root) %{_libdir}/*kdejava.so
-%{_libdir}/*kdejava.la
+#%{_libdir}/*kdejava.la
 %{_libdir}/java/koala.jar
 %endif
 
