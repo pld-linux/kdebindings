@@ -18,18 +18,16 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.5
-Release:	2
+Version:	3.5.6
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	e0da219943407a786c2ceea1605fadd1
+# Source0-md5:	d26b5f54f062b765a949d66657c2ab3c
 #Patch100: %{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
-Patch3:		kde-am.patch
-Patch4:		%{name}-python.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -417,8 +415,6 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p0
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
