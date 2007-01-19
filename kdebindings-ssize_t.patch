@@ -1,5 +1,5 @@
---- /home/builder/rpm/pld/BUILD/kdebindings-3.5.6/dcoppython/shell/marshaller.cpp~	2007-01-15 13:19:09.000000000 +0200
-+++ /home/builder/rpm/pld/BUILD/kdebindings-3.5.6/dcoppython/shell/marshaller.cpp	2007-01-19 19:08:45.000000000 +0200
+--- kdebindings-3.5.6/dcoppython/shell/marshaller.cpp~	2007-01-15 13:19:09.000000000 +0200
++++ kdebindings-3.5.6/dcoppython/shell/marshaller.cpp	2007-01-19 19:08:45.000000000 +0200
 @@ -124,7 +124,7 @@
      if (!PyDict_Check(obj)) return false;
  
