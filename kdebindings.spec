@@ -18,16 +18,17 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.5
-Release:	1
+Version:	3.5.6
+Release:	0.3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	e0da219943407a786c2ceea1605fadd1
+# Source0-md5:	d26b5f54f062b765a949d66657c2ab3c
 #Patch100: %{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
+Patch3:		%{name}-ssize_t.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -43,7 +44,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-modules >= 1:5.8.0
 #BuildRequires:	pnet >= 0.4.8
-BuildRequires:	python-devel >= 1:2.1
+BuildRequires:	python-devel >= 1:2.4.4-1.1
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
@@ -413,6 +414,7 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p0
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
@@ -430,8 +432,6 @@ cp %{_datadir}/automake/config.sub admin
 	--with-pythondir=%{py_libdir} \
 	--with-qt-libraries=%{_libdir}
 
-%{__make} -j1
-
 cd kalyptus
 %{__autoconf}
 %configure \
@@ -439,7 +439,10 @@ cd kalyptus
 	--enable-libsuffix=64 \
 %endif
 	--with-qt-libraries=%{_libdir}
+cd ..
+
 %{__make} -j1
+%{__make} -C kalyptus -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
