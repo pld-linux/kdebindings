@@ -44,7 +44,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-modules >= 1:5.8.0
 #BuildRequires:	pnet >= 0.4.8
-BuildRequires:	python-devel >= 1:2.4.4-1.1
+BuildRequires:	python-devel >= 1:2.4.4
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
