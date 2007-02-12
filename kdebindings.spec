@@ -15,8 +15,8 @@
 
 %define		pdir	DCOP
 Summary:	KDE bindings to non-C++ languages
-Summary(pl):	Dowi±zania KDE dla jÍzykÛw innych niø C++
-Summary(pt_BR):	Bindings para KDE
+Summary(pl.UTF-8):   DowiƒÖzania KDE dla jƒôzyk√≥w innych ni≈º C++
+Summary(pt_BR.UTF-8):   Bindings para KDE
 Name:		kdebindings
 Version:	3.5.6
 Release:	1
@@ -59,18 +59,18 @@ Bindings for the K Desktop Environment: provide interfaces to many
 diferent programming languages to use KDE native resources and
 widgets.
 
-%description -l pl
-Dowi±zania KDE/qt dla jÍzykÛw innych niø C++ pozwalaj±ce uøywaÊ
-natywnych dla KDE zasobÛw i widgetÛw.
+%description -l pl.UTF-8
+DowiƒÖzania KDE/qt dla jƒôzyk√≥w innych ni≈º C++ pozwalajƒÖce u≈ºywaƒá
+natywnych dla KDE zasob√≥w i widget√≥w.
 
-%description -l pt_BR
-Bindings para o K Desktop Environment: ProvÍ interfaces para
-diferentes linguagens de programaÁ„o para uso da interface nativa do
+%description -l pt_BR.UTF-8
+Bindings para o K Desktop Environment: Prov√™ interfaces para
+diferentes linguagens de programa√ß√£o para uso da interface nativa do
 KDE.
 
 %package kalyptus
 Summary:	Qt/KDE bindings generator
-Summary(pl):	Generator dowi±zaÒ do Qt/KDE
+Summary(pl.UTF-8):   Generator dowiƒÖza≈Ñ do Qt/KDE
 Group:		X11/Development/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Requires:	perl >= 5.6.1
@@ -80,14 +80,14 @@ Requires:	qt >= 6:3.3.3
 Kalyptus creates language bindings for Qt and KDE C++ libraries
 directly from the headers.
 
-%description kalyptus -l pl
-Kalyptus s≥uøy do generowania dowi±zaÒ do Qt/KDE bezpo∂rednio z plikÛw
-nag≥Ûwkowych.
+%description kalyptus -l pl.UTF-8
+Kalyptus s≈Çu≈ºy do generowania dowiƒÖza≈Ñ do Qt/KDE bezpo≈õrednio z plik√≥w
+nag≈Ç√≥wkowych.
 
 # c bindings
 %package c-dcop
 Summary:	C bindings for DCOP
-Summary(pl):	Dowi±zania w jÍzyku C dla DCOP
+Summary(pl.UTF-8):   DowiƒÖzania w jƒôzyku C dla DCOP
 Group:		X11/Development/Libraries
 Requires:	gtk+ >= 1.2.6
 Requires:	kdelibs >= %{_minlibsevr}
@@ -98,14 +98,14 @@ Obsoletes:	kdebindings-dcop-c
 C bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
-%description c-dcop -l pl
-Dowi±zania jÍzyka C do Desktop COmmunications Protocol (DCOP)
-uøywanego przez aplikacje KDE to wymiany informacji i komunikowania
-siÍ miÍdzy sob±.
+%description c-dcop -l pl.UTF-8
+DowiƒÖzania jƒôzyka C do Desktop COmmunications Protocol (DCOP)
+u≈ºywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siƒô miƒôdzy sobƒÖ.
 
 %package c-dcop-devel
 Summary:	C bindings for DCOP [development files]
-Summary(pl):	Dowi±zania w jÍzyku C dla DCOP [nag≥Ûwki]
+Summary(pl.UTF-8):   DowiƒÖzania w jƒôzyku C dla DCOP [nag≈Ç√≥wki]
 Group:		X11/Development/Libraries
 Requires:	%{name}-c-dcop = %{version}-%{release}
 Requires:	gtk+-devel >= 1.2.6
@@ -115,13 +115,13 @@ Obsoletes:	kdebindings-dcop-c-devel
 %description c-dcop-devel
 c-dcop header files.
 
-%description c-dcop-devel -l pl
-Pliki nag≥Ûwkowe dla c-dcop.
+%description c-dcop-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla c-dcop.
 
 # java bindings
 %package	java-dcop
 Summary:	Java bindings for DCOP
-Summary(pl):	Dowi±zania jÍzyka Java dla DCOP
+Summary(pl.UTF-8):   DowiƒÖzania jƒôzyka Java dla DCOP
 Group:		X11/Development/Libraries
 Requires:	jdk
 Requires:	kdelibs >= %{_minlibsevr}
@@ -133,14 +133,14 @@ Obsoletes:	kdebindings-dcop-java
 Java bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
-%description java-dcop -l pl
-Dowi±zania jÍzyka Java do Desktop COmmunications Protocol (DCOP)
-uøywanego przez aplikacje KDE to wymiany informacji i komunikowania
-siÍ miÍdzy sob±.
+%description java-dcop -l pl.UTF-8
+DowiƒÖzania jƒôzyka Java do Desktop COmmunications Protocol (DCOP)
+u≈ºywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siƒô miƒôdzy sobƒÖ.
 
 %package java-qt
 Summary:	Java bindings for qt
-Summary(pl):	Dowi±zania jÍzyka Java dla qt
+Summary(pl.UTF-8):   DowiƒÖzania jƒôzyka Java dla qt
 Group:		X11/Development/Libraries
 Requires:	jdk
 Requires:	qt >= 6:3.3.3
@@ -149,12 +149,12 @@ Obsoletes:	kdebindings-qt-java
 %description java-qt
 Java bindings for qt.
 
-%description java-qt -l pl
-Dowi±zania jÍzyka Java dla qt.
+%description java-qt -l pl.UTF-8
+DowiƒÖzania jƒôzyka Java dla qt.
 
 %package java-kde
 Summary:	Java bindings for KDE
-Summary(pl):	Dowi±zania jÍzyka Java dla KDE
+Summary(pl.UTF-8):   DowiƒÖzania jƒôzyka Java dla KDE
 Group:		X11/Development/Libraries
 Requires:	%{name}-qt-java = %{version}-%{release}
 Requires:	jdk
@@ -164,27 +164,27 @@ Obsoletes:	kdebindings-kde-java
 %description java-kde
 Java bindings for KDE.
 
-%description java-kde -l pl
-Dowi±zania jÍzyka Java dla KDE.
+%description java-kde -l pl.UTF-8
+DowiƒÖzania jƒôzyka Java dla KDE.
 
 # javascript scripting for KDE applications
 
 %package kjsembed
 Summary:	A library for embedding the KJS JavaScript interpreter
-Summary(pl):	Biblioteka pozwalaj±ca na zagnieødøanie interpretera KJS
+Summary(pl.UTF-8):   Biblioteka pozwalajƒÖca na zagnie≈ºd≈ºanie interpretera KJS
 Group:		X11/Development/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 
 %description kjsembed
 A library for embedding the KJS JavaScript interpreter in application.
 
-%description kjsembed -l pl
-Biblioteka pozwalaj±ca na zagnieødøanie interpretera JavaScript - KJS,
+%description kjsembed -l pl.UTF-8
+Biblioteka pozwalajƒÖca na zagnie≈ºd≈ºanie interpretera JavaScript - KJS,
 w dowolnej aplikacji.
 
 %package kjsembed-devel
 Summary:	kjsembed header files
-Summary(pl):	Pliki nag≥Ûwkowe dla kjsembed
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe dla kjsembed
 Group:		X11/Development/Libraries
 Requires:	%{name}-kjsembed = %{version}-%{release}
 Requires:	kdelibs-devel >= %{_minlibsevr}
@@ -192,14 +192,14 @@ Requires:	kdelibs-devel >= %{_minlibsevr}
 %description kjsembed-devel
 kjsembed header files.
 
-%description kjsembed-devel -l pl
-Pliki nag≥Ûwkowe dla kjsembed.
+%description kjsembed-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla kjsembed.
 
 # mozilla kpart - not working
 
 %package kmozilla
 Summary:	Mozilla kpart
-Summary(pl):	KPart mozilli
+Summary(pl.UTF-8):   KPart mozilli
 Group:		X11/Applications
 Requires:	%{name}-xparts-kde = %{version}-%{release}
 Requires:	kdelibs >= %{_minlibsevr}
@@ -208,15 +208,15 @@ Requires:	mozilla
 %description kmozilla
 This KPart allows using mozilla as a browser engine.
 
-%description kmozilla -l pl
-Kpart umoøliwiaj±cy uøywanie mozilli jako silnika przegl±darki zamiast
+%description kmozilla -l pl.UTF-8
+Kpart umo≈ºliwiajƒÖcy u≈ºywanie mozilli jako silnika przeglƒÖdarki zamiast
 khtml.
 
 # perl bindings
 
 %package perl-dcop
 Summary:	Perl bindings for DCOP
-Summary(pl):	Dowi±zania jÍzyka Perl dla DCOP
+Summary(pl.UTF-8):   DowiƒÖzania jƒôzyka Perl dla DCOP
 Group:		X11/Development/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 Requires:	perl-modules >= 5.6.1
@@ -227,15 +227,15 @@ Obsoletes:	kdebindings-dcop-perl
 Perl bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
-%description perl-dcop -l pl
-Dowi±zania jÍzyka Perl do Desktop COmmunications Protocol (DCOP)
-uøywanego przez aplikacje KDE to wymiany informacji i komunikowania
-siÍ miÍdzy sob±.
+%description perl-dcop -l pl.UTF-8
+DowiƒÖzania jƒôzyka Perl do Desktop COmmunications Protocol (DCOP)
+u≈ºywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siƒô miƒôdzy sobƒÖ.
 
 # python bindings, only dcop as qt and kde ones are in py{Qt,KDE}.spec
 %package python-dcop
 Summary:	Python bindings for DCOP
-Summary(pl):	Dowi±zania jÍzyka Python dla DCOP
+Summary(pl.UTF-8):   DowiƒÖzania jƒôzyka Python dla DCOP
 Group:		X11/Development/Libraries
 # does it really need devel?
 %pyrequires_eq	python-devel
@@ -247,14 +247,14 @@ Obsoletes:	kdebindings-dcop-python
 Python bindings for the Desktop COmmunications Protocol used by KDE
 applications to share information and communicate between each other.
 
-%description python-dcop -l pl
-Dowi±zania jÍzyka Python do Desktop COmmunications Protocol (DCOP)
-uøywanego przez aplikacje KDE to wymiany informacji i komunikowania
-siÍ miÍdzy sob±.
+%description python-dcop -l pl.UTF-8
+DowiƒÖzania jƒôzyka Python do Desktop COmmunications Protocol (DCOP)
+u≈ºywanego przez aplikacje KDE to wymiany informacji i komunikowania
+siƒô miƒôdzy sobƒÖ.
 
 %package ruby-qt
 Summary:	A SMOKE library for qt
-Summary(pl):	Biblioteka SMOKE dla qt
+Summary(pl.UTF-8):   Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	qt >= 6:3.3.3
 %{?ruby_mod_ver_requires_eq}
@@ -263,12 +263,12 @@ Requires:	%{name}-smoke-qt = %{version}-%{release}
 %description ruby-qt
 A Qt bindings for Ruby using the SMOKE technology.
 
-%description ruby-qt -l pl
-Dowi±zania Qt dla Ruby przy uøyciu technologii SMOKE.
+%description ruby-qt -l pl.UTF-8
+DowiƒÖzania Qt dla Ruby przy u≈ºyciu technologii SMOKE.
 
 %package ruby-kde
 Summary:	A SMOKE library for qt
-Summary(pl):	Biblioteka SMOKE dla qt
+Summary(pl.UTF-8):   Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-ruby-qt = %{version}-%{release}
 Requires:	%{name}-smoke-kde = %{version}-%{release}
@@ -278,24 +278,24 @@ Requires:	qt >= 6:3.3.3
 %description ruby-kde
 A KDE bindings for Ruby using the SMOKE technology.
 
-%description ruby-kde -l pl
-Dowi±zania KDE dla Ruby przy uøyciu technologii SMOKE.
+%description ruby-kde -l pl.UTF-8
+DowiƒÖzania KDE dla Ruby przy u≈ºyciu technologii SMOKE.
 
 %package smoke-qt
 Summary:	A SMOKE library for qt
-Summary(pl):	Biblioteka SMOKE dla qt
+Summary(pl.UTF-8):   Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	qt >= 6:3.3.3
 
 %description smoke-qt
 SMOKE library (Scripting Meta Object Kompiler Engine) dla qt.
 
-%description smoke-qt -l pl
-Biblioteka SMOKE (Silnik kompilatora metaobiektÛw skryptowych) dla qt.
+%description smoke-qt -l pl.UTF-8
+Biblioteka SMOKE (Silnik kompilatora metaobiekt√≥w skryptowych) dla qt.
 
 %package smoke-qt-devel
 Summary:	smoke-qt header files
-Summary(pl):	Pliki nag≥Ûwkowe dla smoke-qt
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe dla smoke-qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 Requires:	qt-devel >= 6:3.3.3
@@ -303,12 +303,12 @@ Requires:	qt-devel >= 6:3.3.3
 %description smoke-qt-devel
 smoke-qt header files.
 
-%description smoke-qt-devel -l pl
-Pliki nag≥Ûwkowe dla smoke-qt.
+%description smoke-qt-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla smoke-qt.
 
 %package smoke-kde
 Summary:	A SMOKE library for qt
-Summary(pl):	Biblioteka SMOKE dla qt
+Summary(pl.UTF-8):   Biblioteka SMOKE dla qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-qt = %{version}-%{release}
 Requires:	kdelibs >= %{_minlibsevr}
@@ -316,13 +316,13 @@ Requires:	kdelibs >= %{_minlibsevr}
 %description smoke-kde
 SMOKE library (Scripting Meta Object Kompiler Engine) dla KDE.
 
-%description smoke-kde -l pl
-Biblioteka SMOKE (Silnik kompilatora metaobiektÛw skryptowych) dla
+%description smoke-kde -l pl.UTF-8
+Biblioteka SMOKE (Silnik kompilatora metaobiekt√≥w skryptowych) dla
 KDE.
 
 %package smoke-kde-devel
 Summary:	smoke-qt header files
-Summary(pl):	Pliki nag≥Ûwkowe dla smoke-qt
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe dla smoke-qt
 Group:		X11/Development/Libraries
 Requires:	%{name}-smoke-kde = %{version}-%{release}
 Requires:	%{name}-smoke-qt-devel = %{version}-%{release}
@@ -331,50 +331,50 @@ Requires:	kdelibs-devel >= %{_minlibsevr}
 %description smoke-kde-devel
 smoke-kde header files.
 
-%description smoke-kde-devel -l pl
-Pliki nag≥Ûwkowe dla smoke-kde.
+%description smoke-kde-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla smoke-kde.
 
 # xparts, don't work (dcopc doesn't work)
 
 %package xparts-gtk
 Summary:	XParts technology for gtk
-Summary(pl):	Technologia XParts dla gtk
+Summary(pl.UTF-8):   Technologia XParts dla gtk
 Group:		X11/Development/Libraries
 Requires:	%{name}-c-dcop = %{version}-%{release}
 
 %description xparts-gtk
 XParts technology: GTK+ embedding.
 
-%description xparts-gtk -l pl
-Technologia XParts: zagnieødøanie GTK+.
+%description xparts-gtk -l pl.UTF-8
+Technologia XParts: zagnie≈ºd≈ºanie GTK+.
 
 %package xparts-gtk-devel
 Summary:	xparts-gtk header files
-Summary(pl):	Pliki nag≥Ûwkowe dla xparts-gtk
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe dla xparts-gtk
 Group:		X11/Development/Libraries
 Requires:	%{name}-c-dcop-devel = %{version}-%{release}
 
 %description xparts-gtk-devel
 xparts-gtk header files.
 
-%description xparts-gtk-devel -l pl
-Pliki nag≥Ûwkowe dla xparts-gtk.
+%description xparts-gtk-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla xparts-gtk.
 
 %package xparts-interfaces
 Summary:	Common libraries for XParts technology
-Summary(pl):	WspÛ≥dzielone biblioteki dla technologii XParts
+Summary(pl.UTF-8):   Wsp√≥≈Çdzielone biblioteki dla technologii XParts
 Group:		X11/Development/Libraries
 Requires:	%{name}-xparts-kde = %{version}-%{release}
 
 %description xparts-interfaces
 Common libraries for XParts technology.
 
-%description xparts-interfaces -l pl
-WspÛ≥dzielone biblioteki dla technologii XParts.
+%description xparts-interfaces -l pl.UTF-8
+Wsp√≥≈Çdzielone biblioteki dla technologii XParts.
 
 %package xparts-interfaces-devel
 Summary:	xparts-interfaces header files
-Summary(pl):	Pliki nag≥Ûwkowe dla xparts-interfaces
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe dla xparts-interfaces
 Group:		X11/Development/Libraries
 Requires:	%{name}-xparts-interfaces = %{version}-%{release}
 Requires:	kdelibs-devel >= %{_minlibsevr}
@@ -382,32 +382,32 @@ Requires:	kdelibs-devel >= %{_minlibsevr}
 %description xparts-interfaces-devel
 xparts-interfaces header files.
 
-%description xparts-interfaces-devel -l pl
-Pliki nag≥Ûwkowe dla xparts-interfaces.
+%description xparts-interfaces-devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe dla xparts-interfaces.
 
 %package xparts-kde
 Summary:	XParts technology for KDE
-Summary(pl):	Technologia XParts dla KDE
+Summary(pl.UTF-8):   Technologia XParts dla KDE
 Group:		X11/Development/Libraries
 Requires:	kdelibs >= %{_minlibsevr}
 
 %description xparts-kde
 XParts technology: KDE embedding.
 
-%description xparts-kde -l pl
+%description xparts-kde -l pl.UTF-8
 Technologia XParts: osadzanie KDE.
 
 %package xparts-notepad
 Summary:	An example use of XParts technology: notepad
-Summary(pl):	Przyk≥adowe wykorzystanie technologii XParts: notatnik
+Summary(pl.UTF-8):   Przyk≈Çadowe wykorzystanie technologii XParts: notatnik
 Group:		X11/Development/Libraries
 Requires:	%{name}-xparts-kde = %{version}-%{release}
 
 %description xparts-notepad
 An example use of XParts technology: notepad.
 
-%description xparts-notepad -l pl
-Przyk≥adowe wykorzystanie technologii XParts: notatnik.
+%description xparts-notepad -l pl.UTF-8
+Przyk≈Çadowe wykorzystanie technologii XParts: notatnik.
 
 %prep
 %setup -q
