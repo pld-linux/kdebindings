@@ -5,11 +5,6 @@
 %bcond_without	ruby	# disable ruby
 %bcond_with	java	# enable java
 
-%if "%{_lib}" != "lib"
-# needs fix (lib vs lib64 problem)
-%undefine	with_ruby
-%endif
-
 %define		_state	stable
 %define		_minlibsevr	9:%{version}
 
@@ -19,7 +14,7 @@ Summary(pl.UTF-8):	Dowiązania KDE dla języków innych niż C++
 Summary(pt_BR.UTF-8):	Bindings para KDE
 Name:		kdebindings
 Version:	3.5.7
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
