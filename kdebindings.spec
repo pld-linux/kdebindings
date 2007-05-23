@@ -1,30 +1,21 @@
 # TODO
 # - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
-#   /usr/bin/krubyinit
-#   /usr/bin/qtrubyinit
-#   /usr/bin/rbkconfig_compiler
-#   /usr/bin/rbqtapi
-#   /usr/bin/rbqtsh
-#   /usr/bin/rbuic
-#   /usr/lib/ruby/site_ruby/1.8/KDE/korundum.rb
-#   /usr/lib/ruby/site_ruby/1.8/Korundum.rb
-#   /usr/lib/ruby/site_ruby/1.8/Qt.rb
-#   /usr/lib/ruby/site_ruby/1.8/Qt/qtruby.rb
-#   /usr/lib/ruby/site_ruby/1.8/x86_64-linux/korundum.la
-#   /usr/lib/ruby/site_ruby/1.8/x86_64-linux/korundum.so.0.0.0
-#   /usr/lib/ruby/site_ruby/1.8/x86_64-linux/qtruby.la
-#   /usr/lib/ruby/site_ruby/1.8/x86_64-linux/qtruby.so.0.0.0
-#   /usr/lib/ruby/site_ruby/1.8/x86_64-linux/qui.la
-#   /usr/lib/ruby/site_ruby/1.8/x86_64-linux/qui.so.0.0.0
+# - build failure:
+#x_10.cpp: In function `static void x_KProtocolInfo::x_13(Smoke::StackItem*)':
+#x_10.cpp:21695: error: weak declaration of `bool xret' must be public
+#x_10.cpp:21696: warning: `__weak__' attribute does not apply to types
+#x_10.cpp: In function `static void x_KProtocolInfo::x_21(Smoke::StackItem*)':
+#x_10.cpp:21735: error: weak declaration of `bool xret' must be public
+#x_10.cpp:21736: warning: `__weak__' attribute does not apply to types
+#x_10.cpp: In function `static void x_KProtocolInfo::x_23(Smoke::StackItem*)':
+#x_10.cpp:21745: error: weak declaration of `bool xret' must be public
+#x_10.cpp:21746: warning: `__weak__' attribute does not apply to types
+#make[3]: *** [x_10.lo] Error 1
+#make[3]: Leaving directory `/home/glen/rpm/pld/kde/BUILD/kdebindings-3.5.7/smoke/kde'
 #
 # Conditional build:
 %bcond_without	ruby	# disable ruby
 %bcond_with	java	# enable java
-
-%if "%{_lib}" != "lib"
-# needs fix (lib vs lib64 problem)
-%undefine	with_ruby
-%endif
 
 %define		_state	stable
 %define		_minlibsevr	9:%{version}
@@ -34,17 +25,16 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.6
-Release:	1
+Version:	3.5.7
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	d26b5f54f062b765a949d66657c2ab3c
+# Source0-md5:	bc8a95f0cfd52ad0559a775cf045f230
 #Patch100: %{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
-Patch3:		%{name}-ssize_t.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -60,7 +50,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-modules >= 1:5.8.0
 #BuildRequires:	pnet >= 0.4.8
-BuildRequires:	python-devel >= 1:2.4.4
+BuildRequires:	python-devel >= 1:2.1
 %if %{with ruby}
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
@@ -430,7 +420,6 @@ Przyk³adowe wykorzystanie technologii XParts: notatnik.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p0
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
