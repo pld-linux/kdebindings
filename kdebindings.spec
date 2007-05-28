@@ -1,18 +1,5 @@
 # TODO
 # - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
-# - build failure:
-#x_10.cpp: In function `static void x_KProtocolInfo::x_13(Smoke::StackItem*)':
-#x_10.cpp:21695: error: weak declaration of `bool xret' must be public
-#x_10.cpp:21696: warning: `__weak__' attribute does not apply to types
-#x_10.cpp: In function `static void x_KProtocolInfo::x_21(Smoke::StackItem*)':
-#x_10.cpp:21735: error: weak declaration of `bool xret' must be public
-#x_10.cpp:21736: warning: `__weak__' attribute does not apply to types
-#x_10.cpp: In function `static void x_KProtocolInfo::x_23(Smoke::StackItem*)':
-#x_10.cpp:21745: error: weak declaration of `bool xret' must be public
-#x_10.cpp:21746: warning: `__weak__' attribute does not apply to types
-#make[3]: *** [x_10.lo] Error 1
-#make[3]: Leaving directory `/home/glen/rpm/pld/kde/BUILD/kdebindings-3.5.7/smoke/kde'
-#
 # Conditional build:
 %bcond_without	ruby	# disable ruby
 %bcond_with	java	# enable java
@@ -26,7 +13,7 @@ Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
 Version:	3.5.7
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
