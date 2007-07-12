@@ -14,7 +14,7 @@ Summary(pl.UTF-8):	Dowiązania KDE dla języków innych niż C++
 Summary(pt_BR.UTF-8):	Bindings para KDE
 Name:		kdebindings
 Version:	3.5.7
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
@@ -561,6 +561,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rbqtsh
 %attr(755,root,root) %{_bindir}/rbuic
 %{ruby_sitelibdir}/Qt.rb
+%dir %{ruby_sitelibdir}/Qt
 %{ruby_sitelibdir}/Qt/qtruby.rb
 %attr(755,root,root) %{ruby_sitearchdir}/qtruby.so.0.0.0
 %attr(755,root,root) %{ruby_sitearchdir}/qui.so.0.0.0
@@ -569,9 +570,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/krubyinit
 %attr(755,root,root) %{_bindir}/rbkconfig_compiler
+%{ruby_sitelibdir}/Korundum.rb
 %dir %{ruby_sitelibdir}/KDE
 %{ruby_sitelibdir}/KDE/korundum.rb
-%{ruby_sitelibdir}/Korundum.rb
 %attr(755,root,root) %{ruby_sitearchdir}/korundum.so.0.0.0
 %endif
 
