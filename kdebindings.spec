@@ -12,12 +12,12 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl):	Dowi±zania KDE dla jêzyków innych ni¿ C++
 Summary(pt_BR):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.7
+Version:	3.5.8
 Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	bc8a95f0cfd52ad0559a775cf045f230
+# Source0-md5:	4325d22ac70d3945609bd952c19e793b
 #Patch100: %{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
@@ -562,18 +562,20 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rbqtapi
 %attr(755,root,root) %{_bindir}/rbqtsh
 %attr(755,root,root) %{_bindir}/rbuic
-%{_libdir}/ruby/site_ruby/1.8/Qt.rb
-%{_libdir}/ruby/site_ruby/1.8/Qt/qtruby.rb
-%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qtruby.so.0.0.0
-%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/qui.so.0.0.0
+%{ruby_sitelibdir}/Qt.rb
+%dir %{ruby_sitelibdir}/Qt
+%{ruby_sitelibdir}/Qt/qtruby.rb
+%attr(755,root,root) %{ruby_sitearchdir}/qtruby.so.0.0.0
+%attr(755,root,root) %{ruby_sitearchdir}/qui.so.0.0.0
 
 %files ruby-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/krubyinit
 %attr(755,root,root) %{_bindir}/rbkconfig_compiler
-%{_libdir}/ruby/site_ruby/1.8/KDE/korundum.rb
-%{_libdir}/ruby/site_ruby/1.8/Korundum.rb
-%attr(755,root,root) %{_libdir}/ruby/site_ruby/1.8/*/korundum.so.0.0.0
+%{ruby_sitelibdir}/Korundum.rb
+%dir %{ruby_sitelibdir}/KDE
+%{ruby_sitelibdir}/KDE/korundum.rb
+%attr(755,root,root) %{ruby_sitearchdir}/korundum.so.0.0.0
 %endif
 
 # java bindings
