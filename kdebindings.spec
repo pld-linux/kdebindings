@@ -1,5 +1,6 @@
 # TODO
 # - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
+#    kdebindings-python-dcop-3.5.8-1 marks python-devel-2.4.4-1 (cap python-devel)
 #
 # Conditional build:
 %bcond_without	ruby	# disable ruby
