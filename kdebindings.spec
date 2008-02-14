@@ -1,5 +1,7 @@
 # TODO
 # - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
+#    kdebindings-python-dcop-3.5.8-1 marks python-devel-2.4.4-1 (cap python-devel)
+#
 # Conditional build:
 %bcond_without	ruby	# disable ruby
 %bcond_with	java	# enable java
@@ -466,6 +468,8 @@ mv $RPM_BUILD_ROOT{%{py_scriptdir},%{py_sitescriptdir}}/pydcop.py
 
 mv -f $RPM_BUILD_ROOT%{_desktopdir}/{Utilities,kde}/embedjs.desktop
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -489,19 +493,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/embedjs
 %attr(755,root,root) %{_bindir}/kjscmd
 %attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
-%{_libdir}/kde3/libcustomobjectplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libcustomobjectplugin.so
-%{_libdir}/kde3/libcustomqobjectplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libcustomqobjectplugin.so
-%{_libdir}/kde3/libimagefxplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libimagefxplugin.so
-%{_libdir}/kde3/libjsconsoleplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libjsconsoleplugin.so
-%{_libdir}/kde3/libqprocessplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libqprocessplugin.so
-%{_libdir}/kde3/libjavascript.la
 %attr(755,root,root) %{_libdir}/kde3/libjavascript.so
-%{_libdir}/kde3/libfileitemplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libfileitemplugin.so
 %{_desktopdir}/kde/kjscmd.desktop
 %dir %{_datadir}/apps/kjsembed
