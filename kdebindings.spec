@@ -1,7 +1,3 @@
-# TODO
-# - do we need pcop.la from pyhton-dcop? (create -devel?) anyone knows add rm -f into install section
-#    kdebindings-python-dcop-3.5.8-1 marks python-devel-2.4.4-1 (cap python-devel)
-#
 # Conditional build:
 %bcond_without	ruby	# disable ruby
 %bcond_with	java	# enable java
@@ -14,12 +10,12 @@ Summary:	KDE bindings to non-C++ languages
 Summary(pl.UTF-8):	Dowiązania KDE dla języków innych niż C++
 Summary(pt_BR.UTF-8):	Bindings para KDE
 Name:		kdebindings
-Version:	3.5.8
+Version:	3.5.9
 Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	4325d22ac70d3945609bd952c19e793b
+# Source0-md5:	ba780920f6b810a30a61b1ffa888706b
 #Patch100: %{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
@@ -47,8 +43,6 @@ BuildRequires:	ruby-devel
 %endif
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define         _noautoreq      libtool(.*)
 
 %description
 Bindings for the K Desktop Environment: provide interfaces to many
@@ -441,36 +435,46 @@ cd ..
 %{__make} -C kalyptus -j1
 
 %install
-rm -rf $RPM_BUILD_ROOT
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	destdir=$RPM_BUILD_ROOT \
-	kde_appsdir=%{_desktopdir} \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		destdir=$RPM_BUILD_ROOT \
+		kde_appsdir=%{_desktopdir} \
+		kde_htmldir=%{_kdedocdir} \
+		kde_libs_htmldir=%{_kdedocdir}
 
-%{__make} -C kalyptus install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	destdir=$RPM_BUILD_ROOT \
-	kde_appsdir=%{_desktopdir} \
-	kde_htmldir=%{_kdedocdir} \
-	kde_libs_htmldir=%{_kdedocdir}
+	%{__make} -C kalyptus install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		destdir=$RPM_BUILD_ROOT \
+		kde_appsdir=%{_desktopdir} \
+		kde_htmldir=%{_kdedocdir} \
+		kde_libs_htmldir=%{_kdedocdir}
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
-	$RPM_BUILD_ROOT%{_libdir}/ruby/site_ruby/1.8/*/*.la
+	touch makeinstall.stamp
+fi
 
-install -d $RPM_BUILD_ROOT%{py_sitedir}
-mv $RPM_BUILD_ROOT%{py_sitescriptdir}/pcop.{so,la} $RPM_BUILD_ROOT%{py_sitedir}
-install -d $RPM_BUILD_ROOT%{py_sitescriptdir}
-mv $RPM_BUILD_ROOT{%{py_scriptdir},%{py_sitescriptdir}}/pydcop.py
-%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_postclean
+if [ ! -f installed.stamp ]; then
+	rm -f $RPM_BUILD_ROOT%{py_sitedir}/pcop.la \
+		$RPM_BUILD_ROOT%{ruby_sitearchdir}/*.la
+	rm -f $RPM_BUILD_ROOT%{ruby_sitearchdir}/qtruby.so
+	rm -f $RPM_BUILD_ROOT%{ruby_sitearchdir}/qui.so
+	rm -f $RPM_BUILD_ROOT%{ruby_sitearchdir}/korundum.so
 
-mv -f $RPM_BUILD_ROOT%{_desktopdir}/{Utilities,kde}/embedjs.desktop
+	install -d $RPM_BUILD_ROOT%{py_sitedir}
+	mv $RPM_BUILD_ROOT%{py_sitescriptdir}/pcop.{so,la} $RPM_BUILD_ROOT%{py_sitedir}
+	install -d $RPM_BUILD_ROOT%{py_sitescriptdir}
+	mv $RPM_BUILD_ROOT{%{py_scriptdir},%{py_sitescriptdir}}/pydcop.py
+	%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
+	%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
+	%py_postclean
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	mv -f $RPM_BUILD_ROOT%{_desktopdir}/{Utilities,kde}/embedjs.desktop
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
+	touch installed.stamp
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -494,7 +498,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/jsaccess
 %attr(755,root,root) %{_bindir}/embedjs
 %attr(755,root,root) %{_bindir}/kjscmd
-%attr(755,root,root) %{_libdir}/*kjsembed.so.1.0.0
+%attr(755,root,root) %{_libdir}/libkjsembed.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkjsembed.so.1
 %attr(755,root,root) %{_libdir}/kde3/libcustomobjectplugin.so
 %attr(755,root,root) %{_libdir}/kde3/libcustomqobjectplugin.so
 %attr(755,root,root) %{_libdir}/kde3/libimagefxplugin.so
@@ -520,31 +525,33 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kjsembed-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*kjsembed.so
-%{_libdir}/*kjsembed.la
+%attr(755,root,root) %{_libdir}/libkjsembed.so
+%{_libdir}/libkjsembed.la
 %{_includedir}/kjsembed
 
 # python bindings for dcop, others won't be built
 %files python-dcop
 %defattr(644,root,root,755)
 %{py_sitescriptdir}/pydcop.py[co]
-#%{py_sitedir}/pcop.la
+%{py_sitedir}/pcop.la
 %attr(755,root,root) %{py_sitedir}/pcop.so
 
 # C bindings for qt and kde using the smoke technology
 %files smoke-qt
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*smokeqt.so.1.2.2
+%attr(755,root,root) %{_libdir}/libsmokeqt.so.1.2.2
+%attr(755,root,root) %ghost %{_libdir}/libsmokeqt.so.1
 
 %files smoke-qt-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*smokeqt.so
-%{_libdir}/*smokeqt.la
+%attr(755,root,root) %{_libdir}/libsmokeqt.so
+%{_libdir}/libsmokeqt.la
 %{_includedir}/smoke.h
 
 %files smoke-kde
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*smokekde.so.1.2.2
+%attr(755,root,root) %{_libdir}/libsmokekde.so.1.2.2
+%attr(755,root,root) %ghost %{_libdir}/libsmokekde.so.1
 
 %files smoke-kde-devel
 %defattr(644,root,root,755)
@@ -564,17 +571,22 @@ rm -rf $RPM_BUILD_ROOT
 %{ruby_sitelibdir}/Qt.rb
 %dir %{ruby_sitelibdir}/Qt
 %{ruby_sitelibdir}/Qt/qtruby.rb
-%attr(755,root,root) %{ruby_sitearchdir}/qtruby.so.0.0.0
-%attr(755,root,root) %{ruby_sitearchdir}/qui.so.0.0.0
+%attr(755,root,root) %{ruby_sitearchdir}/qtruby.so.*.*.*
+%attr(755,root,root) %ghost %{ruby_sitearchdir}/qtruby.so.0
+%attr(755,root,root) %{ruby_sitearchdir}/qui.so.*.*.*
+%attr(755,root,root) %ghost %{ruby_sitearchdir}/qui.so.0
 
 %files ruby-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/krubyinit
 %attr(755,root,root) %{_bindir}/rbkconfig_compiler
+%attr(755,root,root) %{_bindir}/rbkdeapi
+%attr(755,root,root) %{_bindir}/rbkdesh
 %{ruby_sitelibdir}/Korundum.rb
 %dir %{ruby_sitelibdir}/KDE
 %{ruby_sitelibdir}/KDE/korundum.rb
-%attr(755,root,root) %{ruby_sitearchdir}/korundum.so.0.0.0
+%attr(755,root,root) %{ruby_sitearchdir}/korundum.so.*.*.*
+%attr(755,root,root) %ghost %{ruby_sitearchdir}/korundum.so.0
 %endif
 
 # java bindings
@@ -595,7 +607,7 @@ rm -rf $RPM_BUILD_ROOT
 #%{_prefix}/doc/javalib
 %attr(755,root,root) %{_libdir}/*qtjava*.so.1.0.0
 %attr(755,root,root) %{_libdir}/*qtjava*.so
-#%{_libdir}/*qtjava*.la
+%{_libdir}/*qtjava*.la
 %{_libdir}/java/qtjava.jar
 %doc qtjava/javalib/docs/en/*.html
 %doc qtjava/javalib/docs/en/*.sgml
@@ -605,7 +617,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/koala
 %attr(755,root,root) %{_libdir}/*kdejava.so.1.0.0
 %attr(755,root,root) %{_libdir}/*kdejava.so
-#%{_libdir}/*kdejava.la
+%{_libdir}/*kdejava.la
 %{_libdir}/java/koala.jar
 %endif
 
