@@ -109,7 +109,7 @@ c-dcop header files.
 Pliki nagłówkowe dla c-dcop.
 
 # java bindings
-%package	java-dcop
+%package java-dcop
 Summary:	Java bindings for DCOP
 Summary(pl.UTF-8):	Dowiązania języka Java dla DCOP
 Group:		X11/Development/Libraries
