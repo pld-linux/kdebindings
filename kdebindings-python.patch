@@ -1,0 +1,28 @@
+--- kdebindings-3.5.10/dcoppython/shell/gen_marshal_code.py.org	2008-10-08 19:34:35.667580504 +0200
++++ kdebindings-3.5.10/dcoppython/shell/gen_marshal_code.py	2008-10-08 19:36:26.077568709 +0200
+@@ -120,12 +120,12 @@
+     def __init__(self, type):
+         self.type = type
+         self.demarshal_as = None
+-        self.as = []
++        self.pas = []
+         self.info = []
+ 
+-    def add_as(self, as):
+-        if self.demarshal_as == None: self.demarshal_as = as
+-        self.as += [as]
++    def add_as(self, pas):
++        if self.demarshal_as == None: self.demarshal_as = pas
++        self.pas += [pas]
+ 
+     def add_info(self,info):
+         self.info += [info]
+@@ -133,7 +133,7 @@
+     def xml(self):
+         return ['<type dcoptype="%s">' % self.type,
+                 '  <demarshal-as>%s</demarshal-as>' % self.demarshal_as] + \
+-               ['  <marshal-as>%s</marshal-as>' % as for as in self.as ] + \
++               ['  <marshal-as>%s</marshal-as>' % pas for pas in self.pas ] + \
+                ['  <info>%s</info>' % info for info in self.info ] + \
+                ['</type>']
+ 
