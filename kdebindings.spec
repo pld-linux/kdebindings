@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	Dowiązania KDE dla języków innych niż C++
 Summary(pt_BR.UTF-8):	Bindings para KDE
 Name:		kdebindings
 Version:	3.5.10
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
@@ -20,6 +20,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch0:		kde-common-PLD.patch
 Patch1:		%{name}-ac.patch
 Patch2:		kde-ac260-lt.patch
+Patch3:		%{name}-python.patch
 URL:		http://www.kde.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -405,6 +406,7 @@ Przykładowe wykorzystanie technologii XParts: notatnik.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
