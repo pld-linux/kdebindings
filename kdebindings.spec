@@ -11,7 +11,7 @@ Summary(pl.UTF-8):	Dowiązania KDE dla języków innych niż C++
 Summary(pt_BR.UTF-8):	Bindings para KDE
 Name:		kdebindings
 Version:	3.5.10
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
