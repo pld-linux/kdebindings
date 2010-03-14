@@ -437,6 +437,7 @@ cd ..
 
 %{__make} -j1
 %{__make} -C kalyptus -j1
+rm -f makeinstall.stamp
 
 %install
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
