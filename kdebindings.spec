@@ -27,7 +27,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 #BuildRequires:	fam-devel
 #BuildRequires:	gcc-objc
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gtk+-devel >= 1.2.6
 %{?with_java:BuildRequires:	jdk}
 BuildRequires:	kdelibs-devel >= %{_minlibsevr}
