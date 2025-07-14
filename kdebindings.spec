@@ -404,11 +404,11 @@ Przykładowe wykorzystanie technologii XParts: notatnik.
 %prep
 %setup -q
 #%patch100 -p1
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 # dont build pyQt and pyKDE since we build it from a separate spec
 echo 'DO_NOT_COMPILE="$DO_NOT_COMPILE python"' > python/configure.in.in
