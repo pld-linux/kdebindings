@@ -403,7 +403,7 @@ Przykładowe wykorzystanie technologii XParts: notatnik.
 
 %prep
 %setup -q
-#%patch100 -p1
+#%%patch100 -p1
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
